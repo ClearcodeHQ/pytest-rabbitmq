@@ -5,10 +5,6 @@ pytest-rabbitmq
     :target: https://pypi.python.org/pypi/pytest-rabbitmq/
     :alt: Latest PyPI version
 
-.. image:: https://readthedocs.org/projects/pytest-rabbitmq/badge/?version=v0.0.0
-    :target: http://pytest-rabbitmq.readthedocs.io/en/v0.0.0/
-    :alt: Documentation Status
-
 .. image:: https://img.shields.io/pypi/wheel/pytest-rabbitmq.svg
     :target: https://pypi.python.org/pypi/pytest-rabbitmq/
     :alt: Wheel Status
