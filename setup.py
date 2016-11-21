@@ -16,7 +16,7 @@
 
 # You should have received a copy of the GNU Lesser General Public License
 # along with pytest-rabbitmq. If not, see <http://www.gnu.org/licenses/>.
-
+"""Installation module of pytest-rabbitmq."""
 
 import os
 from setuptools import setup, find_packages
@@ -35,11 +35,18 @@ def read(fname):
     return open(os.path.join(here, fname)).read()
 
 
-requirements = []
+requirements = [
+    'pytest',
+    'port-for',
+    'mirakuru',
+    'path.py>=4.2',
+    'rabbitpy'
+]
 
 test_requires = [
     'pytest',
-    'pytest-cov'
+    'pytest-xdist==1.15.0',
+    'pytest-cov==2.4.0'
 ]
 
 extras_require = {
@@ -63,7 +70,8 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)',
+        'License :: OSI Approved :: '
+        'GNU Lesser General Public License v3 or later (LGPLv3+)',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
@@ -72,6 +80,10 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     package_dir={'': 'src'},
+    entry_points={
+        'pytest11': [
+            'pytest_rabbitmq = pytest_rabbitmq.plugin'
+        ]},
     packages=find_packages('src'),
     install_requires=requirements,
     tests_require=test_requires,

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016 by Clearcode <http://clearcode.cc>
 # and associates (see AUTHORS).
 
@@ -15,13 +14,9 @@
 # GNU Lesser General Public License for more details.
 
 # You should have received a copy of the GNU Lesser General Public License
-# along with pytest-rabbitmq. If not, see <http://www.gnu.org/licenses/>.
-"""Main pytest-rabbitmq module."""
+# along with pytest-rabbitmq.  If not, see <http://www.gnu.org/licenses/>.
+"""RabbitMQ factory package."""
+from pytest_rabbitmq.factories.client import rabbitmq
+from pytest_rabbitmq.factories.process import rabbitmq_proc
 
-
-import logging
-
-__version__ = '0.0.0'
-
-
-logger = logging.getLogger(__name__)
+__all__ = ('rabbitmq', 'rabbitmq_proc')
