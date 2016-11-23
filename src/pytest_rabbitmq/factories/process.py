@@ -28,6 +28,20 @@ from mirakuru import TCPExecutor
 from pytest_rabbitmq.port import get_port
 
 
+def get_config(request):
+    """Return a dictionary with config options."""
+    config = {}
+    options = [
+        'logsdir'
+    ]
+    for option in options:
+        option_name = 'rabbitmq_' + option
+        conf = request.config.getoption(option_name) or \
+            request.config.getini(option_name)
+        config[option] = conf
+    return config
+
+
 class RabbitMqExecutor(TCPExecutor):
     """RabbitMQ executor to start specific rabbitmq instances."""
 
@@ -116,8 +130,10 @@ def rabbit_path(name):
     return env if env.exists() else None
 
 
-def rabbitmq_proc(config_file=None, server=None, host=None, port=-1,
-                  node_name=None, rabbit_ctl_file=None, logs_prefix=''):
+def rabbitmq_proc(
+        server=None, host=None, port=-1,
+        node_name=None, rabbit_ctl_file=None, logsdir=None, logs_prefix=''
+):
     """
     Fixture factory for RabbitMQ process.
 
@@ -135,6 +151,7 @@ def rabbitmq_proc(config_file=None, server=None, host=None, port=-1,
                           on the port number, so multiple nodes are not
                           clustered)
     :param str rabbit_ctl_file: path to rabbitmqctl file
+    :param str logsdir: path to log directory
     :param str logs_prefix: prefix for log directory
 
     :returns pytest fixture with RabbitMQ process executor
@@ -160,6 +177,7 @@ def rabbitmq_proc(config_file=None, server=None, host=None, port=-1,
         :rtype: pytest_rabbitmq.executors.TCPExecutor
         :returns: tcp executor of running rabbitmq-server
         """
+        config = get_config(request)
         # TODO
         rabbit_ctl = rabbit_ctl_file or '/usr/lib/rabbitmq/bin/rabbitmqctl'
         # TODO
@@ -169,8 +187,9 @@ def rabbitmq_proc(config_file=None, server=None, host=None, port=-1,
 
         rabbit_path = Path(gettempdir()) / 'rabbitmq.{0}/'.format(rabbit_port)
 
-        logsdir = Path(request.config.getvalue('rabbitmq_logsdir'))
-        rabbit_log = logsdir / '{prefix}rabbit-server.{port}.log'.format(
+        rabbit_log = Path(
+            config['logsdir'] or logsdir
+        ) / '{prefix}rabbit-server.{port}.log'.format(
             prefix=logs_prefix,
             port=rabbit_port
         )

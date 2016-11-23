@@ -1,6 +1,7 @@
 CHANGELOG
 =========
 
-0.0.0
+unreleased
 -------
-- Created the pytest-rabbitmq [by Clearcode - The A Room]
+
+- [enhancements] command line and pytest.ini options for modifying logs directory destination
