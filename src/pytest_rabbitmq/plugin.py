@@ -16,23 +16,28 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with pytest-rabbitmq.  If not, see <http://www.gnu.org/licenses/>.
 """Plugin definition for pytest-rabbitmq."""
-from path import Path
+from tempfile import gettempdir
 
 from pytest_rabbitmq import factories
 
 
-ROOT_DIR = Path(__file__).parent.parent.abspath()
-CONF_DIR = ROOT_DIR / 'pytest_rabbitmq' / 'conf'
+_help_logsdir = "Logs directory location"
 
 
 def pytest_addoption(parser):
     """Confioguration option."""
+    parser.addini(
+        name='rabbitmq_logsdir',
+        help=_help_logsdir,
+        default=gettempdir(),
+    )
+
     parser.addoption(
         '--rabbitmq-logsdir',
         action='store',
-        default='/tmp',
         metavar='path',
         dest='rabbitmq_logsdir',
+        help=_help_logsdir,
     )
 
 

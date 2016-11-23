@@ -32,18 +32,78 @@ Package status
      :target: https://requires.io/github/ClearcodeHQ/pytest-rabbitmq/requirements/?tag=v0.0.0
      :alt: Requirements Status
 
-python package template - to make easier for me to duplicate general package structure.
+What is this?
+=============
+
+This is a pytest plugin, that enables you to test your code that relies on a running RabbitMQ Queues.
+It allows you to specify additional fixtures for RabbitMQ process and client.
+
+How to use
+==========
+
+Plugin contains two fixtures
+
+* **rabbitmq** - it's a client fixture that has functional scope. After each test, it cleans RabbitMQ, cleans queues and exchanges for more reliable tests.
+* **rabbitmq_proc** - session scoped fixture, that starts RabbitMQ instance at it's first use and stops at the end of the tests.
+
+Simply include one of these fixtures into your tests fixture list.
+
+You can also create additional rabbitmq client and process fixtures if you'd need to:
+
+
+.. code-block:: python
+
+    from pytest_rabbitmq import factories
+
+    rabbitmq_my_proc = factories.rabbitmq_proc(
+        port=None, logsdir='/tmp')
+    rabbitmq_my = factories.rabbitmq('rabbitmq_my_proc')
+
+.. note::
+
+    Each RabbitMQ process fixture can be configured in a different way than the others through the fixture factory arguments.
+
+Configuration
+=============
+
+You can define your settings in three ways, it's fixture factory argument, command line option and pytest.ini configuration option.
+You can pick which you prefer, but remember that these settings are handled in the following order:
+
+    * ``Fixture factory argument``
+    * ``Command line option``
+    * ``Configuration option in your pytest.ini file``
+
++--------------------------+--------------------------+---------------------+-------------------+---------+
+| RabbitMQ option          | Fixture factory argument | Command line option | pytest.ini option | Default |
++==========================+==========================+=====================+===================+=========+
+| Log directory location   | logsdir                  | --rabbitmq-logsdir  | rabbitmq_logsdir  | $TMPDIR |
++--------------------------+--------------------------+---------------------+-------------------+---------+
+
+Example usage:
+
+* pass it as an argument in your own fixture
+
+    .. code-block:: python
+
+        rabbitmq_proc = factories.rabbitmq_proc(port=8888)
+
+* use ``--rabbitmq-port`` command line option when you run your tests
+
+    .. code-block::
+
+        py.test tests --rabbitmq-port=8888
+
+
+* specify your port as ``rabbitmq_port`` in your ``pytest.ini`` file.
+
+    To do so, put a line like the following under the ``[pytest]`` section of your ``pytest.ini``:
+
+    .. code-block:: ini
+
+        [pytest]
+        rabbitmq_port = 8888
 
 Package resources
 -----------------
 
 * Bug tracker: https://github.com/ClearcodeHQ/pytest-rabbitmq/issues
-* Documentation: http://pytest-rabbitmq.readthedocs.org/
-
-
-
-
-Travis-ci
----------
-
-After creating package on github, move to tracis-ci.org, and turn on ci builds for given package.
