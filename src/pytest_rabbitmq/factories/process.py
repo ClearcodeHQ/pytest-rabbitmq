@@ -32,7 +32,7 @@ def get_config(request):
     """Return a dictionary with config options."""
     config = {}
     options = [
-        'logsdir'
+        'logsdir', 'host', 'port'
     ]
     for option in options:
         option_name = 'rabbitmq_' + option
@@ -137,7 +137,6 @@ def rabbitmq_proc(
     """
     Fixture factory for RabbitMQ process.
 
-    :param str config_file: path to config file
     :param str server: path to rabbitmq-server command
     :param str host: server host
     :param str|int|tuple|set|list port:
@@ -182,8 +181,8 @@ def rabbitmq_proc(
         rabbit_ctl = rabbit_ctl_file or '/usr/lib/rabbitmq/bin/rabbitmqctl'
         # TODO
         rabbit_server = server or '/usr/lib/rabbitmq/bin/rabbitmq-server'
-        rabbit_host = host or '127.0.0.1'  # TODO
-        rabbit_port = get_port(port) or get_port(5673)  # TODO
+        rabbit_host = host or config['host']
+        rabbit_port = get_port(port) or get_port(config['port'])
 
         rabbit_path = Path(gettempdir()) / 'rabbitmq.{0}/'.format(rabbit_port)
 

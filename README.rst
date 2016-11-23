@@ -73,11 +73,15 @@ You can pick which you prefer, but remember that these settings are handled in t
     * ``Command line option``
     * ``Configuration option in your pytest.ini file``
 
-+--------------------------+--------------------------+---------------------+-------------------+---------+
-| RabbitMQ option          | Fixture factory argument | Command line option | pytest.ini option | Default |
-+==========================+==========================+=====================+===================+=========+
-| Log directory location   | logsdir                  | --rabbitmq-logsdir  | rabbitmq_logsdir  | $TMPDIR |
-+--------------------------+--------------------------+---------------------+-------------------+---------+
++--------------------------+--------------------------+---------------------+-------------------+-----------+
+| RabbitMQ option          | Fixture factory argument | Command line option | pytest.ini option | Default   |
++==========================+==========================+=====================+===================+===========+
+| host                     | host                     | --rabbitmq-host     | rabbitmq_host     | 127.0.0.1 |
++--------------------------+--------------------------+---------------------+-------------------+-----------+
+| port                     | port                     | --rabbitmq-port     | rabbitmq_port     | random    |
++--------------------------+--------------------------+---------------------+-------------------+-----------+
+| Log directory location   | logsdir                  | --rabbitmq-logsdir  | rabbitmq_logsdir  | $TMPDIR   |
++--------------------------+--------------------------+---------------------+-------------------+-----------+
 
 Example usage:
 
