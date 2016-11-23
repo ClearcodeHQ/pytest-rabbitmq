@@ -1,5 +1,5 @@
 pytest-rabbitmq
-====
+===============
 
 .. image:: https://img.shields.io/pypi/v/pytest-rabbitmq.svg
     :target: https://pypi.python.org/pypi/pytest-rabbitmq/

@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright (C) 2016 by Clearcode <http://clearcode.cc>
+# Copyright (C) 2013 by Clearcode <http://clearcode.cc>
 # and associates (see AUTHORS).
 
 # This file is part of pytest-rabbitmq.
@@ -15,13 +14,27 @@
 # GNU Lesser General Public License for more details.
 
 # You should have received a copy of the GNU Lesser General Public License
-# along with pytest-rabbitmq. If not, see <http://www.gnu.org/licenses/>.
-"""Main pytest-rabbitmq module."""
+# along with pytest-rabbitmq.  If not, see <http://www.gnu.org/licenses/>.
+"""Plugin definition for pytest-rabbitmq."""
+from path import Path
+
+from pytest_rabbitmq import factories
 
 
-import logging
+ROOT_DIR = Path(__file__).parent.parent.abspath()
+CONF_DIR = ROOT_DIR / 'pytest_rabbitmq' / 'conf'
 
-__version__ = '0.0.0'
+
+def pytest_addoption(parser):
+    """Confioguration option."""
+    parser.addoption(
+        '--rabbitmq-logsdir',
+        action='store',
+        default='/tmp',
+        metavar='path',
+        dest='rabbitmq_logsdir',
+    )
 
 
-logger = logging.getLogger(__name__)
+rabbitmq_proc = factories.rabbitmq_proc()
+rabbitmq = factories.rabbitmq('rabbitmq_proc')
