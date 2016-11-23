@@ -8,6 +8,6 @@ mccabe==0.5.2
 pyroma==2.2
 pytest==3.0.4
 rabbitpy==1.0.0
-path.py==8.2.1
+path.py==9.0
 port-for==0.3.1
 mirakuru==0.8.2
