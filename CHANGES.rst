@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-unreleased
+1.0.0
 -------
 
 - [enhancements] command line and pytest.ini options for modifying rabbitmq node name
