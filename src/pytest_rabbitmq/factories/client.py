@@ -95,7 +95,7 @@ def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
         :returns: instance of :class:`BlockingConnection`
         """
         # load required process fixture
-        process = request.getfuncargvalue(process_fixture_name)
+        process = request.getfixturevalue(process_fixture_name)
 
         connection = Connection(
             'amqp://guest:guest@{host}:{port}/%2F'.format(
