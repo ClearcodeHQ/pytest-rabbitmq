@@ -32,7 +32,7 @@ def get_config(request):
     """Return a dictionary with config options."""
     config = {}
     options = [
-        'logsdir', 'host', 'port', 'server', 'ctl'
+        'logsdir', 'host', 'port', 'server', 'ctl', 'node'
     ]
     for option in options:
         option_name = 'rabbitmq_' + option
@@ -132,7 +132,7 @@ def rabbit_path(name):
 
 def rabbitmq_proc(
         server=None, host=None, port=-1,
-        node_name=None, ctl=None, logsdir=None, logs_prefix=''
+        node=None, ctl=None, logsdir=None, logs_prefix=''
 ):
     """
     Fixture factory for RabbitMQ process.
@@ -145,7 +145,7 @@ def rabbitmq_proc(
         [(2000,3000)] or (2000,3000) - random available port from a given range
         [{4002,4003}] or {4002,4003} - random of 4002 or 4003 ports
         [(2000,3000), {4002,4003}] -random of given range and set
-    :param str node_name: RabbitMQ node name used for setting environment
+    :param str node: RabbitMQ node name used for setting environment
                           variable RABBITMQ_NODENAME (the default depends
                           on the port number, so multiple nodes are not
                           clustered)
@@ -196,7 +196,8 @@ def rabbitmq_proc(
 
         # Use the port number in node name, so multiple instances started
         # at different ports will work separately instead of clustering.
-        chosen_node_name = node_name or 'rabbitmq-test-{0}'.format(rabbit_port)
+        chosen_node_name = node or config['node'] \
+            or 'rabbitmq-test-{0}'.format(rabbit_port)
 
         environ = {
             'RABBITMQ_LOG_BASE': rabbit_log,

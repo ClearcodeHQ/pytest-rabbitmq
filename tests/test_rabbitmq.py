@@ -9,7 +9,7 @@ def test_rabbitmq(rabbitmq):
     assert channel.state == channel.OPEN
 
 
-rabbitmq_proc2 = factories.rabbitmq_proc(port=5674, node_name='test2')
+rabbitmq_proc2 = factories.rabbitmq_proc(port=5674, node='test2')
 rabbitmq2 = factories.rabbitmq('rabbitmq_proc2')
 
 
@@ -72,7 +72,7 @@ def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
     assert no_queues == cleared_queues
 
 
-rabbitmq_rand_proc = factories.rabbitmq_proc(port=None, node_name='test3')
+rabbitmq_rand_proc = factories.rabbitmq_proc(port=None, node='test3')
 rabbitmq_rand = factories.rabbitmq('rabbitmq_rand_proc')
 
 

@@ -26,6 +26,7 @@ _help_server = "RabbitMQ server path"
 _help_logsdir = "Logs directory location"
 _help_host = 'Host at which RabbitMQ will accept connections'
 _help_port = 'Port at which RabbitMQ will accept connections'
+_help_node = 'Node name for rabbitmq instance'
 
 
 def pytest_addoption(parser):
@@ -54,6 +55,11 @@ def pytest_addoption(parser):
         name='rabbitmq_logsdir',
         help=_help_logsdir,
         default=gettempdir(),
+    )
+    parser.addini(
+        name='rabbitmq_node',
+        help=_help_node,
+        default=None,
     )
 
     parser.addoption(
@@ -86,6 +92,12 @@ def pytest_addoption(parser):
         metavar='path',
         dest='rabbitmq_logsdir',
         help=_help_logsdir,
+    )
+    parser.addoption(
+        '--rabbitmq-node',
+        action='store',
+        dest='rabbitmq_node',
+        help=_help_node,
     )
 
 
