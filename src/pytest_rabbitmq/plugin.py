@@ -21,6 +21,8 @@ from tempfile import gettempdir
 from pytest_rabbitmq import factories
 
 
+_help_ctl = "RabbitMQ ctl path"
+_help_server = "RabbitMQ server path"
 _help_logsdir = "Logs directory location"
 _help_host = 'Host at which RabbitMQ will accept connections'
 _help_port = 'Port at which RabbitMQ will accept connections'
@@ -33,11 +35,20 @@ def pytest_addoption(parser):
         help=_help_host,
         default='127.0.0.1'
     )
-
     parser.addini(
         name='rabbitmq_port',
         help=_help_port,
         default=None,
+    )
+    parser.addini(
+        name='rabbitmq_ctl',
+        help=_help_ctl,
+        default='/usr/lib/rabbitmq/bin/rabbitmqctl',
+    )
+    parser.addini(
+        name='rabbitmq_server',
+        help=_help_server,
+        default='/usr/lib/rabbitmq/bin/rabbitmq-server',
     )
     parser.addini(
         name='rabbitmq_logsdir',
@@ -51,14 +62,24 @@ def pytest_addoption(parser):
         dest='rabbitmq_host',
         help=_help_host,
     )
-
     parser.addoption(
         '--rabbitmq-port',
         action='store',
         dest='rabbitmq_port',
         help=_help_port
     )
-
+    parser.addoption(
+        '--rabbitmq-ctl',
+        action='store',
+        dest='rabbitmq_ctl',
+        help=_help_ctl
+    )
+    parser.addoption(
+        '--rabbitmq-server',
+        action='store',
+        dest='rabbitmq_server',
+        help=_help_server
+    )
     parser.addoption(
         '--rabbitmq-logsdir',
         action='store',
