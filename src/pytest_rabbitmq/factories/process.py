@@ -32,7 +32,7 @@ def get_config(request):
     """Return a dictionary with config options."""
     config = {}
     options = [
-        'logsdir', 'host', 'port'
+        'logsdir', 'host', 'port', 'server', 'ctl'
     ]
     for option in options:
         option_name = 'rabbitmq_' + option
@@ -132,7 +132,7 @@ def rabbit_path(name):
 
 def rabbitmq_proc(
         server=None, host=None, port=-1,
-        node_name=None, rabbit_ctl_file=None, logsdir=None, logs_prefix=''
+        node_name=None, ctl=None, logsdir=None, logs_prefix=''
 ):
     """
     Fixture factory for RabbitMQ process.
@@ -149,7 +149,7 @@ def rabbitmq_proc(
                           variable RABBITMQ_NODENAME (the default depends
                           on the port number, so multiple nodes are not
                           clustered)
-    :param str rabbit_ctl_file: path to rabbitmqctl file
+    :param str ctl: path to rabbitmqctl file
     :param str logsdir: path to log directory
     :param str logs_prefix: prefix for log directory
 
@@ -177,10 +177,8 @@ def rabbitmq_proc(
         :returns: tcp executor of running rabbitmq-server
         """
         config = get_config(request)
-        # TODO
-        rabbit_ctl = rabbit_ctl_file or '/usr/lib/rabbitmq/bin/rabbitmqctl'
-        # TODO
-        rabbit_server = server or '/usr/lib/rabbitmq/bin/rabbitmq-server'
+        rabbit_ctl = ctl or config['ctl']
+        rabbit_server = server or config['server']
         rabbit_host = host or config['host']
         rabbit_port = get_port(port) or get_port(config['port'])
 
