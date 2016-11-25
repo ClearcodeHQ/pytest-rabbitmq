@@ -20,16 +20,16 @@ pytest-rabbitmq
 Package status
 --------------
 
-.. image:: https://travis-ci.org/ClearcodeHQ/pytest-rabbitmq.svg?branch=v1.0.0
+.. image:: https://travis-ci.org/ClearcodeHQ/pytest-rabbitmq.svg?branch=v1.1.0
     :target: https://travis-ci.org/ClearcodeHQ/pytest-rabbitmq
     :alt: Tests
 
-.. image:: https://coveralls.io/repos/ClearcodeHQ/pytest-rabbitmq/badge.png?branch=v1.0.0
-    :target: https://coveralls.io/r/ClearcodeHQ/pytest-rabbitmq?branch=v1.0.0
+.. image:: https://coveralls.io/repos/ClearcodeHQ/pytest-rabbitmq/badge.png?branch=v1.1.0
+    :target: https://coveralls.io/r/ClearcodeHQ/pytest-rabbitmq?branch=v1.1.0
     :alt: Coverage Status
 
-.. image:: https://requires.io/github/ClearcodeHQ/pytest-rabbitmq/requirements.svg?tag=v1.0.0
-     :target: https://requires.io/github/ClearcodeHQ/pytest-rabbitmq/requirements/?tag=v1.0.0
+.. image:: https://requires.io/github/ClearcodeHQ/pytest-rabbitmq/requirements.svg?tag=v1.1.0
+     :target: https://requires.io/github/ClearcodeHQ/pytest-rabbitmq/requirements/?tag=v1.1.0
      :alt: Requirements Status
 
 What is this?
