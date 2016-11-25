@@ -36,7 +36,7 @@ def read(fname):
 
 
 requirements = [
-    'pytest',
+    'pytest>=3.0.0',
     'port-for',
     'mirakuru',
     'path.py>=4.2',
@@ -44,7 +44,6 @@ requirements = [
 ]
 
 test_requires = [
-    'pytest',
     'pytest-xdist==1.15.0',
     'pytest-cov==2.4.0'
 ]

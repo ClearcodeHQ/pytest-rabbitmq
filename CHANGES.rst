@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+unreleased
+-------
+
+- [enhancements] adjust pytest-rabbitmq to pytest 3. require pytest 3.
+
 1.0.0
 -------
 
