@@ -39,7 +39,6 @@ requirements = [
     'pytest>=3.0.0',
     'port-for',
     'mirakuru',
-    'path.py>=4.2',
     'rabbitpy'
 ]
 

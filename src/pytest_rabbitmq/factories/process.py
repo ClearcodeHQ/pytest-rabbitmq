@@ -22,7 +22,6 @@ import subprocess
 from tempfile import gettempdir
 
 import pytest
-from path import Path
 from mirakuru import TCPExecutor
 
 from pytest_rabbitmq.port import get_port
@@ -117,7 +116,7 @@ def rabbit_path(name):
     else return path to directory.
 
     :param str name: name of environment variable
-    :rtype: path.path or None
+    :rtype: str or None
     :returns: path to directory
     """
     env = os.environ.get(name)
@@ -125,9 +124,7 @@ def rabbit_path(name):
     if not env:
         return
 
-    env = Path(env)
-
-    return env if env.exists() else None
+    return env if os.path.exists(env) else None
 
 
 def rabbitmq_proc(
@@ -182,13 +179,17 @@ def rabbitmq_proc(
         rabbit_host = host or config['host']
         rabbit_port = get_port(port) or get_port(config['port'])
 
-        rabbit_path = Path(gettempdir()) / 'rabbitmq.{0}/'.format(rabbit_port)
+        rabbit_path = os.path.join(
+            gettempdir(),
+            'rabbitmq.{0}/'.format(rabbit_port)
+        )
 
-        rabbit_log = Path(
-            config['logsdir'] or logsdir
-        ) / '{prefix}rabbit-server.{port}.log'.format(
-            prefix=logs_prefix,
-            port=rabbit_port
+        rabbit_log = os.path.join(
+            (config['logsdir'] or logsdir),
+            '{prefix}rabbit-server.{port}.log'.format(
+                prefix=logs_prefix,
+                port=rabbit_port
+            )
         )
 
         rabbit_mnesia = rabbit_path + 'mnesia'
