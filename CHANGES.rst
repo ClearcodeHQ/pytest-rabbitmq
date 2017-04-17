@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+unreleased
+-------
+
+- [enhancemet] removed path.py dependency
+
 1.1.0
 -------
 
