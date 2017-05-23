@@ -6,7 +6,7 @@ pydocstyle==2.0.0
 pycodestyle==2.3.1
 mccabe==0.6.1
 pyroma==2.2
-pytest==3.0.7
+pytest==3.1.0
 rabbitpy==1.0.0
 port-for==0.3.1
 mirakuru==0.8.2
