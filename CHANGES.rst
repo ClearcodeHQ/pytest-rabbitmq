@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-unreleased
-----------
+1.1.2
+-------
 
 - [fix] Fix list queues functionality
 

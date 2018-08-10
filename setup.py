@@ -54,7 +54,7 @@ extras_require = {
 
 setup(
     name='pytest-rabbitmq',
-    version='1.1.1',
+    version='1.1.2',
     description='RabbitMQ process and client fixtures for pytest',
     long_description=(
         read('README.rst') + '\n\n' + read('CHANGES.rst')
