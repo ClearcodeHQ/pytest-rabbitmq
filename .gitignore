@@ -3,6 +3,9 @@
 # C extensions
 *.so
 
+# rabbitmq
+erl_crash.dump
+
 # Packages
 *.egg
 *.egg-info
@@ -25,6 +28,7 @@ pip-log.txt
 .coverage
 .tox
 nosetests.xml
+.pytest_cache
 
 # Translations
 *.mo

@@ -97,10 +97,10 @@ class RabbitMqExecutor(TCPExecutor):
         """Get queues defined on given rabbitmq."""
         queues = []
         output = self.rabbitctl_output('list_queues', 'name')
-        unwanted_queues = ['Listing queues ...', '...done.']
+        unwanted_queues = ['listing queues', 'done']
 
         for queue in output.split('\n'):
-            if queue and queue not in unwanted_queues:
+            if queue and queue.strip('. ').lower() not in unwanted_queues:
                 queues.append(str(queue))
 
         return queues
