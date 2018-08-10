@@ -43,7 +43,7 @@ requirements = [
 ]
 
 test_requires = [
-    'pytest-xdist==1.18.1',
+    'pytest-xdist==1.22.5',
     'pytest-cov==2.5.1'
 ]
 
