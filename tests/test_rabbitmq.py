@@ -1,5 +1,4 @@
 """Tests for RabbitMQ fixtures."""
-from pytest_rabbitmq import factories
 from pytest_rabbitmq.factories.client import clear_rabbitmq
 
 
@@ -7,10 +6,6 @@ def test_rabbitmq(rabbitmq):
     """Check a signle. default rabbitmq."""
     channel = rabbitmq.channel()
     assert channel.state == channel.OPEN
-
-
-rabbitmq_proc2 = factories.rabbitmq_proc(port=5674, node='test2')
-rabbitmq2 = factories.rabbitmq('rabbitmq_proc2')
 
 
 def test_second_rabbitmq(rabbitmq, rabbitmq2):
@@ -61,7 +56,7 @@ def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
     queue = Queue(channel, 'fastlane')
     queue.declare()
     queues = rabbitmq_proc.list_queues()
-    assert len(queues) > 0
+    assert queues
 
     # make sure it's different and clear it
     assert queues != no_queues
@@ -72,18 +67,10 @@ def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
     assert no_queues == cleared_queues
 
 
-rabbitmq_rand_proc = factories.rabbitmq_proc(port=None, node='test3')
-rabbitmq_rand = factories.rabbitmq('rabbitmq_rand_proc')
-
-
 def test_random_port(rabbitmq_rand):
     """Test if rabbit fixture can be started on random port."""
     channel = rabbitmq_rand.channel()
     assert channel.state == channel.OPEN
-
-
-rabbitmq_rand_proc2 = factories.rabbitmq_proc(port=None)
-rabbitmq_rand_proc3 = factories.rabbitmq_proc(port=None)
 
 
 def test_random_port_node_names(rabbitmq_rand_proc2, rabbitmq_rand_proc3):

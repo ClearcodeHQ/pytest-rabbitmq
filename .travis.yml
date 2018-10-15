@@ -14,16 +14,25 @@ install:
 - pip install -r requirements-test.txt
 - pip install -e .[tests] coveralls wheel
 script:
-- py.test -n 0 --cov src/pytest_rabbitmq tests
-- pylama
-- pyroma .
+- py.test -n 0 --cov pytest_rabbitmq tests
 after_success:
 - coveralls
 jobs:
   include:
     - stage: xdist
       python: 3.6
-      script: py.test -n 1 --cov src/pytest_rabbitmq tests
+      script: py.test -n 1 --cov pytest_rabbitmq tests
+    - stage: linters
+      python: 3.6
+      install:
+      - pip install -r requirements-lint.txt
+      - pip install .[tests] coveralls wheel
+      script:
+      - pycodestyle
+      - pydocstyle
+      - pylint pytest_rabbitmq tests
+      - pyroma .
+      after_success: skip
     - stage: deploy
       python: 3.6
       if: tag IS present
