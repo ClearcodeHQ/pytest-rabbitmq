@@ -48,8 +48,8 @@ def clear_rabbitmq(process, rabbitmq_connection):
         ex = Exchange(channel, exchange)
         ex.delete()
 
-    for queue in process.list_queues():
-        if queue.startswith('amq.'):
+    for queue_name in process.list_queues():
+        if queue_name.startswith('amq.'):
             # ----------------------------------------------------------------
             # From rabbit docs:
             # https://www.rabbitmq.com/amqp-0-9-1-reference.html
@@ -60,8 +60,8 @@ def clear_rabbitmq(process, rabbitmq_connection):
             # exists. Error code: access-refused
             # ----------------------------------------------------------------
             continue
-        qu = Queue(channel, queue)
-        qu.delete()
+        queue = Queue(channel, queue_name)
+        queue.delete()
 
 
 def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):

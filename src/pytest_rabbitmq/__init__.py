@@ -17,11 +17,4 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with pytest-rabbitmq. If not, see <http://www.gnu.org/licenses/>.
 """Main pytest-rabbitmq module."""
-
-
-import logging
-
 __version__ = '1.1.2'
-
-
-logger = logging.getLogger(__name__)

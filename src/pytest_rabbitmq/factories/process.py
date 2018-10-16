@@ -106,27 +106,6 @@ class RabbitMqExecutor(TCPExecutor):
         return queues
 
 
-def rabbit_path(name):
-    """
-    Get a path to directory containing RabbitMQ's Mnesia database files.
-
-    `Relocate <http://www.rabbitmq.com/relocate.html>`_
-
-    If environment variable or path to directory do not exist, return ``None``,
-    else return path to directory.
-
-    :param str name: name of environment variable
-    :rtype: str or None
-    :returns: path to directory
-    """
-    env = os.environ.get(name)
-
-    if not env:
-        return
-
-    return env if os.path.exists(env) else None
-
-
 def rabbitmq_proc(
         server=None, host=None, port=-1,
         node=None, ctl=None, logsdir=None, logs_prefix=''
