@@ -3,4 +3,4 @@ coverage==4.5.3 # pytest-cov
 pytest==4.6.3
 rabbitpy==2.0.0
 port-for==0.4
-mirakuru==1.1.0
+mirakuru==2.0.1; python_version>'3.4'
