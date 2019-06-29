@@ -1,5 +1,9 @@
 dist: xenial
 language: python
+addons:
+  apt:
+    packages:
+      - rabbitmq-server
 python:
 - 3.5
 - 3.6
