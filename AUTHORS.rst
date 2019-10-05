@@ -10,3 +10,4 @@ of pytest-rabbitmq along its history.
 * Karolina Blümke
 * Michał Masłowski
 * Dwayne Litzenberger
+* Damian Skrzypczak
