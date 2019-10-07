@@ -1,4 +1,4 @@
-.. image:: https://raw.githubusercontent.com/ClearcodeHQ/pytest-rabbitmq/master/logo.svg
+.. image:: https://raw.githubusercontent.com/ClearcodeHQ/pytest-rabbitmq/master/logo.png
     :width: 100px
     :height: 100px
     
