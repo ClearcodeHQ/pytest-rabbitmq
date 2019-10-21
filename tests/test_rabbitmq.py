@@ -1,4 +1,6 @@
 """Tests for RabbitMQ fixtures."""
+from rabbitpy import Exchange, Queue
+
 from pytest_rabbitmq.factories.client import clear_rabbitmq
 
 
@@ -21,7 +23,6 @@ def test_second_rabbitmq(rabbitmq, rabbitmq2):
 
 def test_rabbitmq_clear_exchanges(rabbitmq, rabbitmq_proc):
     """Declare exchange, and clear it by clear_rabbitmq."""
-    from rabbitpy import Exchange
     channel = rabbitmq.channel()
     assert channel.state == channel.OPEN
 
@@ -44,7 +45,6 @@ def test_rabbitmq_clear_exchanges(rabbitmq, rabbitmq_proc):
 
 def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
     """Declare queue, and clear it by clear_rabbitmq."""
-    from rabbitpy import Queue
     channel = rabbitmq.channel()
     assert channel.state == channel.OPEN
 
