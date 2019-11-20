@@ -5,10 +5,11 @@ addons:
     packages:
       - rabbitmq-server
 python:
-- 3.5
-- 3.6
+- 3.8
 - 3.7
-- 3.8-dev
+- 3.6
+- 3.5
+- nightly
 - pypy3
 # blocklist branches
 branches:
@@ -17,7 +18,7 @@ branches:
   - /^dependabot.*$/
 install:
 - pip install -r requirements-test.txt
-- pip install -e .[tests] coveralls wheel
+- pip install coveralls
 script:
 - py.test -n 0
 after_success:
@@ -25,13 +26,10 @@ after_success:
 jobs:
   include:
     - stage: xdist
-      python: 3.7
       script: py.test -n 1
     - stage: linters
-      python: 3.7
       install:
       - pip install -r requirements-lint.txt
-      - pip install .[tests] coveralls wheel
       script:
       - pycodestyle
       - pydocstyle
@@ -39,7 +37,6 @@ jobs:
       - pyroma .
       after_success: skip
     - stage: deploy
-      python: 3.7
       if: tag IS present
       script: skip
       deploy:
