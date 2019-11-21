@@ -4,6 +4,7 @@ CHANGELOG
 unlreleased
 -------
 
+- [enhancements] Base environment variables support on the mirakuru functionality itself
 - [feature] Drop support for python 2.7. From now on, only support python 3.6 and up
 
 1.1.2
