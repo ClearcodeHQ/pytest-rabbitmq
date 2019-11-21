@@ -1,12 +1,5 @@
 """Tests main conftest file."""
-import sys
-import warnings
-
 from pytest_rabbitmq import factories
-
-if not sys.version_info >= (3, 5):
-    warnings.simplefilter("error", category=DeprecationWarning)
-
 
 # pylint:disable=invalid-name
 rabbitmq_proc2 = factories.rabbitmq_proc(port=5674, node='test2')

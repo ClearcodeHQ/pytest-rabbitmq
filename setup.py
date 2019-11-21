@@ -73,12 +73,7 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
@@ -89,6 +84,7 @@ setup(
         'pytest11': [
             'pytest_rabbitmq = pytest_rabbitmq.plugin'
         ]},
+    python_requires='>=3.6',
     packages=find_packages('src'),
     install_requires=requirements,
     tests_require=test_requires,
