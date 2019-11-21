@@ -160,15 +160,12 @@ def rabbitmq_proc(
 
         rabbit_path = os.path.join(
             gettempdir(),
-            'rabbitmq.{0}/'.format(rabbit_port)
+            f'rabbitmq.{rabbit_port}/'
         )
 
         rabbit_log = os.path.join(
             (config['logsdir'] or logsdir),
-            '{prefix}rabbit-server.{port}.log'.format(
-                prefix=logs_prefix,
-                port=rabbit_port
-            )
+            f'{logs_prefix}rabbit-server.{rabbit_port}.log'
         )
 
         rabbit_mnesia = rabbit_path + 'mnesia'
@@ -177,7 +174,7 @@ def rabbitmq_proc(
         # Use the port number in node name, so multiple instances started
         # at different ports will work separately instead of clustering.
         chosen_node_name = node or config['node'] \
-            or 'rabbitmq-test-{0}'.format(rabbit_port)
+            or f'rabbitmq-test-{rabbit_port}'
 
         environ = {
             'RABBITMQ_LOG_BASE': rabbit_log,

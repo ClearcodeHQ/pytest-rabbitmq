@@ -98,10 +98,7 @@ def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
         process = request.getfixturevalue(process_fixture_name)
 
         connection = Connection(
-            'amqp://guest:guest@{host}:{port}/%2F'.format(
-                host=process.host,
-                port=process.port
-            )
+            f'amqp://guest:guest@{process.host}:{process.port}/%2F'
         )
 
         def finalizer():
