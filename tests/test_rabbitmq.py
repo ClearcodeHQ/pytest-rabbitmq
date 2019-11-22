@@ -75,5 +75,8 @@ def test_random_port(rabbitmq_rand):
 
 def test_random_port_node_names(rabbitmq_rand_proc2, rabbitmq_rand_proc3):
     """Test node names for different processes."""
+    # pylint:disable=protected-access
     assert (rabbitmq_rand_proc2._envvars['RABBITMQ_NODENAME'] !=
             rabbitmq_rand_proc3._envvars['RABBITMQ_NODENAME'])
+
+    # pylint:enable=protected-access
