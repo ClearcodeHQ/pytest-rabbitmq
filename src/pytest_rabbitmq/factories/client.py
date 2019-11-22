@@ -31,7 +31,6 @@ def clear_rabbitmq(process, rabbitmq_connection):
 
     """
     channel = rabbitmq_connection.channel()
-    process.set_environ()
 
     for exchange in process.list_exchanges():
         if exchange.startswith('amq.'):
