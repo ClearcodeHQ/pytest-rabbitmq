@@ -42,7 +42,7 @@ def get_config(request):
 
 def rabbitmq_proc(
         server=None, host=None, port=-1,
-        node=None, ctl=None, logsdir=None, logs_prefix=''
+        node=None, ctl=None, logsdir=None,
 ):
     """
     Fixture factory for RabbitMQ process.
@@ -61,7 +61,6 @@ def rabbitmq_proc(
                           clustered)
     :param str ctl: path to rabbitmqctl file
     :param str logsdir: path to log directory
-    :param str logs_prefix: prefix for log directory
 
     :returns pytest fixture with RabbitMQ process executor
     """
@@ -97,33 +96,14 @@ def rabbitmq_proc(
             f'rabbitmq.{rabbit_port}/'
         )
 
-        rabbit_log = os.path.join(
-            (config['logsdir'] or logsdir),
-            f'{logs_prefix}rabbit-server.{rabbit_port}.log'
-        )
-
-        rabbit_mnesia = rabbit_path + 'mnesia'
-        rabbit_plugins = rabbit_path + 'plugins'
-
-        # Use the port number in node name, so multiple instances started
-        # at different ports will work separately instead of clustering.
-        chosen_node_name = node or config['node'] \
-            or f'rabbitmq-test-{rabbit_port}'
-
-        environ = {
-            'RABBITMQ_LOG_BASE': rabbit_log,
-            'RABBITMQ_MNESIA_BASE': rabbit_mnesia,
-            'RABBITMQ_ENABLED_PLUGINS_FILE': rabbit_plugins,
-            'RABBITMQ_NODE_PORT': str(rabbit_port),
-            'RABBITMQ_NODENAME': chosen_node_name,
-        }
-
         rabbit_executor = RabbitMqExecutor(
             rabbit_server,
             rabbit_host,
             rabbit_port,
             rabbit_ctl,
-            envvars=environ
+            logpath=config['logsdir'] or logsdir,
+            path=rabbit_path,
+            node_name=node or config['node'],
         )
 
         request.addfinalizer(rabbit_executor.stop)
