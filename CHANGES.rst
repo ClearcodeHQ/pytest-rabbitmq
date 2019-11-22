@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-unlreleased
+2.0.0
 -------
 
 - [cleanup] Move more rabbitmq related logic into the executor
