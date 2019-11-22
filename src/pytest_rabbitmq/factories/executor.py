@@ -8,7 +8,10 @@ from mirakuru import TCPExecutor
 class RabbitMqExecutor(TCPExecutor):
     """RabbitMQ executor to start specific rabbitmq instances."""
 
-    def __init__(self, command, host, port, rabbit_ctl, logpath, path, node_name=None, **kwargs):
+    def __init__(
+            self, command, host, port, rabbit_ctl, logpath, path,
+            node_name=None, **kwargs
+    ):  # pylint:disable=too-many-arguments
         """
         Initialize RabbitMQ executor.
 
