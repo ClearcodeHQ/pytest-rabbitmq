@@ -21,6 +21,7 @@ import os
 from tempfile import gettempdir
 
 import pytest
+from mirakuru.exceptions import ProcessExitedWithError
 
 from pytest_rabbitmq.factories.executor import RabbitMqExecutor
 from pytest_rabbitmq.port import get_port
@@ -106,10 +107,11 @@ def rabbitmq_proc(
             node_name=node or config['node'],
         )
 
-        request.addfinalizer(rabbit_executor.stop)
-
         rabbit_executor.start()
-
-        return rabbit_executor
+        yield rabbit_executor
+        try:
+            rabbit_executor.stop()
+        except ProcessExitedWithError:
+            pass
 
     return rabbitmq_proc_fixture
