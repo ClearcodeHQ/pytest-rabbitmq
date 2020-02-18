@@ -24,12 +24,12 @@ pytest-rabbitmq
 Package status
 --------------
 
-.. image:: https://travis-ci.org/ClearcodeHQ/pytest-rabbitmq.svg?branch=v2.0.0
+.. image:: https://travis-ci.org/ClearcodeHQ/pytest-rabbitmq.svg?branch=v2.0.1
     :target: https://travis-ci.org/ClearcodeHQ/pytest-rabbitmq
     :alt: Tests
 
-.. image:: https://coveralls.io/repos/ClearcodeHQ/pytest-rabbitmq/badge.png?branch=v2.0.0
-    :target: https://coveralls.io/r/ClearcodeHQ/pytest-rabbitmq?branch=v2.0.0
+.. image:: https://coveralls.io/repos/ClearcodeHQ/pytest-rabbitmq/badge.png?branch=v2.0.1
+    :target: https://coveralls.io/r/ClearcodeHQ/pytest-rabbitmq?branch=v2.0.1
     :alt: Coverage Status
 
 What is this?
