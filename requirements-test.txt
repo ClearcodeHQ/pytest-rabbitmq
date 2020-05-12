@@ -5,5 +5,5 @@ pytest-cov==2.8.1
 coverage==5.1 # pytest-cov
 rabbitpy==2.0.1
 port-for==0.4
-mirakuru==2.2.0
+mirakuru==2.3.0
 -e .[tests]
