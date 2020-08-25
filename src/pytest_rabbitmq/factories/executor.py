@@ -33,7 +33,7 @@ class RabbitMqExecutor(TCPExecutor):
             # at different ports will work separately instead of clustering.
             'RABBITMQ_NODENAME': node_name or f'rabbitmq-test-{port}',
         }
-        super(RabbitMqExecutor, self).__init__(
+        super().__init__(
             command, host, port, timeout=60, envvars=envvars, **kwargs
         )
         self.rabbit_ctl = rabbit_ctl
