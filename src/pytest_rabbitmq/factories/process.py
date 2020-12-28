@@ -30,20 +30,24 @@ from pytest_rabbitmq.port import get_port
 def get_config(request):
     """Return a dictionary with config options."""
     config = {}
-    options = [
-        'logsdir', 'host', 'port', 'server', 'ctl', 'node'
-    ]
+    options = ["logsdir", "host", "port", "server", "ctl", "node", "plugindir"]
     for option in options:
-        option_name = 'rabbitmq_' + option
-        conf = request.config.getoption(option_name) or \
-            request.config.getini(option_name)
+        option_name = "rabbitmq_" + option
+        conf = request.config.getoption(option_name) or request.config.getini(
+            option_name
+        )
         config[option] = conf
     return config
 
 
 def rabbitmq_proc(
-        server=None, host=None, port=-1,
-        node=None, ctl=None, logsdir=None,
+    server=None,
+    host=None,
+    port=-1,
+    node=None,
+    ctl=None,
+    logsdir=None,
+    plugindir=None,
 ):
     """
     Fixture factory for RabbitMQ process.
@@ -65,7 +69,8 @@ def rabbitmq_proc(
 
     :returns pytest fixture with RabbitMQ process executor
     """
-    @pytest.fixture(scope='session')
+
+    @pytest.fixture(scope="session")
     def rabbitmq_proc_fixture(request):
         """
         Fixture for RabbitMQ process.
@@ -87,24 +92,23 @@ def rabbitmq_proc(
         :returns: tcp executor of running rabbitmq-server
         """
         config = get_config(request)
-        rabbit_ctl = ctl or config['ctl']
-        rabbit_server = server or config['server']
-        rabbit_host = host or config['host']
-        rabbit_port = get_port(port) or get_port(config['port'])
+        rabbit_ctl = ctl or config["ctl"]
+        rabbit_server = server or config["server"]
+        rabbit_host = host or config["host"]
+        rabbit_port = get_port(port) or get_port(config["port"])
 
-        rabbit_path = os.path.join(
-            gettempdir(),
-            f'rabbitmq.{rabbit_port}/'
-        )
+        rabbit_path = os.path.join(gettempdir(), f"rabbitmq.{rabbit_port}/")
+        rabbit_plugin_path = plugindir or config["plugindir"] or rabbit_path
 
         rabbit_executor = RabbitMqExecutor(
             rabbit_server,
             rabbit_host,
             rabbit_port,
             rabbit_ctl,
-            logpath=config['logsdir'] or logsdir,
+            logpath=config["logsdir"] or logsdir,
             path=rabbit_path,
-            node_name=node or config['node'],
+            plugin_path=rabbit_plugin_path,
+            node_name=node or config["node"],
         )
 
         rabbit_executor.start()

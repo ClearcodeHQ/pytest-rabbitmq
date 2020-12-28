@@ -25,82 +25,82 @@ from pytest_rabbitmq import factories
 _help_ctl = "RabbitMQ ctl path"
 _help_server = "RabbitMQ server path"
 _help_logsdir = "Logs directory location"
-_help_host = 'Host at which RabbitMQ will accept connections'
-_help_port = 'Port at which RabbitMQ will accept connections'
-_help_node = 'Node name for rabbitmq instance'
+_help_plugindir = "directory where 'plugin' file is located"
+_help_host = "Host at which RabbitMQ will accept connections"
+_help_port = "Port at which RabbitMQ will accept connections"
+_help_node = "Node name for rabbitmq instance"
 
 
 def pytest_addoption(parser):
     """Confioguration option."""
+    parser.addini(name="rabbitmq_host", help=_help_host, default="127.0.0.1")
     parser.addini(
-        name='rabbitmq_host',
-        help=_help_host,
-        default='127.0.0.1'
-    )
-    parser.addini(
-        name='rabbitmq_port',
+        name="rabbitmq_port",
         help=_help_port,
         default=None,
     )
     parser.addini(
-        name='rabbitmq_ctl',
+        name="rabbitmq_ctl",
         help=_help_ctl,
-        default='/usr/lib/rabbitmq/bin/rabbitmqctl',
+        default="/usr/lib/rabbitmq/bin/rabbitmqctl",
     )
     parser.addini(
-        name='rabbitmq_server',
+        name="rabbitmq_server",
         help=_help_server,
-        default='/usr/lib/rabbitmq/bin/rabbitmq-server',
+        default="/usr/lib/rabbitmq/bin/rabbitmq-server",
     )
     parser.addini(
-        name='rabbitmq_logsdir',
+        name="rabbitmq_logsdir",
         help=_help_logsdir,
         default=gettempdir(),
     )
     parser.addini(
-        name='rabbitmq_node',
+        name="rabbitmq_plugindir",
+        help=_help_logsdir,
+        default=gettempdir(),
+    )
+    parser.addini(
+        name="rabbitmq_node",
         help=_help_node,
         default=None,
     )
 
     parser.addoption(
-        '--rabbitmq-host',
-        action='store',
-        dest='rabbitmq_host',
+        "--rabbitmq-host",
+        action="store",
+        dest="rabbitmq_host",
         help=_help_host,
     )
     parser.addoption(
-        '--rabbitmq-port',
-        action='store',
-        dest='rabbitmq_port',
-        help=_help_port
+        "--rabbitmq-port", action="store", dest="rabbitmq_port", help=_help_port
     )
     parser.addoption(
-        '--rabbitmq-ctl',
-        action='store',
-        dest='rabbitmq_ctl',
-        help=_help_ctl
+        "--rabbitmq-ctl", action="store", dest="rabbitmq_ctl", help=_help_ctl
     )
     parser.addoption(
-        '--rabbitmq-server',
-        action='store',
-        dest='rabbitmq_server',
-        help=_help_server
+        "--rabbitmq-server", action="store", dest="rabbitmq_server", help=_help_server
     )
     parser.addoption(
-        '--rabbitmq-logsdir',
-        action='store',
-        metavar='path',
-        dest='rabbitmq_logsdir',
+        "--rabbitmq-logsdir",
+        action="store",
+        metavar="path",
+        dest="rabbitmq_logsdir",
         help=_help_logsdir,
     )
     parser.addoption(
-        '--rabbitmq-node',
-        action='store',
-        dest='rabbitmq_node',
+        "--rabbitmq-plugindir",
+        action="store",
+        metavar="path",
+        dest="rabbitmq_plugindir",
+        help=_help_plugindir,
+    )
+    parser.addoption(
+        "--rabbitmq-node",
+        action="store",
+        dest="rabbitmq_node",
         help=_help_node,
     )
 
 
 rabbitmq_proc = factories.rabbitmq_proc()
-rabbitmq = factories.rabbitmq('rabbitmq_proc')
+rabbitmq = factories.rabbitmq("rabbitmq_proc")
