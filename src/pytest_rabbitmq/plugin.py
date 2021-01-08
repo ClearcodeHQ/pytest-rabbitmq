@@ -25,7 +25,7 @@ from pytest_rabbitmq import factories
 _help_ctl = "RabbitMQ ctl path"
 _help_server = "RabbitMQ server path"
 _help_logsdir = "Logs directory location"
-_help_plugindir = "directory where 'plugin' file is located"
+_help_plugindir = "Directory where 'plugin' file is located"
 _help_host = "Host at which RabbitMQ will accept connections"
 _help_port = "Port at which RabbitMQ will accept connections"
 _help_node = "Node name for rabbitmq instance"
