@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+unreleased
+----------
+
+- [feature] Allow to configure plugin's location with the use of
+
+  * **--rabbitmq-logsdir** command line argument
+  * **rabbitmq_logsdir** ini file configuration option
+  * **logsdir** factory argument
+
 2.0.1
 ----------
 

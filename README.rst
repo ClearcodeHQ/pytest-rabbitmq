@@ -106,6 +106,11 @@ You can pick which you prefer, but remember that these settings are handled in t
      - --rabbitmq-logsdir
      - rabbitmq_logsdir
      - $TMPDIR
+   * - Plugin directory location
+     - plugin_path
+     - --rabbitmq-plugindir
+     - rabbitmq_plugindir
+     - $TMPDIR
    * - Node name
      - node
      - --rabbitmq-node
