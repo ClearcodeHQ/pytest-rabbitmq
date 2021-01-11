@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-unreleased
+2.1.0
 ----------
 
 - [feature] Allow to configure plugin's location with the use of
