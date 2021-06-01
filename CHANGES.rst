@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+unreleased
+----------
+
+Misc
+++++
+
+- Migrate CI to github actions
+
 2.1.0
 ----------
 
