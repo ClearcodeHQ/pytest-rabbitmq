@@ -9,6 +9,7 @@ Misc
 
 - Migrate CI to github actions
 - Extended range of messages for list queues output
+- Support only python 3.7 and up
 
 2.1.0
 ----------
