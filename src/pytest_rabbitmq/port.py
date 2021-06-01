@@ -27,7 +27,8 @@ class InvalidPortsDefinition(ValueError):
     def __init__(self, ports):
         """Construct InvalidPortsDefinition exception."""
         super().__init__(
-            f'Unknown format of ports: {ports}.\n' + (
+            f"Unknown format of ports: {ports}.\n"
+            + (
                 'You should provide a ports range "[(4000,5000)]"'
                 'or "(4000,5000)" or a comma-separated ports set'
                 '"[{4000,5000,6000}]" or list of ints "[400,5000,6000,8000]"'

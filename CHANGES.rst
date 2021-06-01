@@ -1,10 +1,21 @@
 CHANGELOG
 =========
 
+unreleased
+----------
+
+Misc
+++++
+
+- Migrate CI to github actions
+- Extended range of messages for list queues output
+
 2.1.0
 ----------
 
-- [feature] Allow to configure plugin's location with the use of
+Feature
++++++++
+- Allow to configure plugin's location with the use of
 
   * **--rabbitmq-logsdir** command line argument
   * **rabbitmq_logsdir** ini file configuration option

@@ -71,15 +71,9 @@ def pytest_addoption(parser):
         dest="rabbitmq_host",
         help=_help_host,
     )
-    parser.addoption(
-        "--rabbitmq-port", action="store", dest="rabbitmq_port", help=_help_port
-    )
-    parser.addoption(
-        "--rabbitmq-ctl", action="store", dest="rabbitmq_ctl", help=_help_ctl
-    )
-    parser.addoption(
-        "--rabbitmq-server", action="store", dest="rabbitmq_server", help=_help_server
-    )
+    parser.addoption("--rabbitmq-port", action="store", dest="rabbitmq_port", help=_help_port)
+    parser.addoption("--rabbitmq-ctl", action="store", dest="rabbitmq_ctl", help=_help_ctl)
+    parser.addoption("--rabbitmq-server", action="store", dest="rabbitmq_server", help=_help_server)
     parser.addoption(
         "--rabbitmq-logsdir",
         action="store",
