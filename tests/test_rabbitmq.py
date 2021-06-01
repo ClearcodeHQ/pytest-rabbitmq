@@ -49,6 +49,7 @@ def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
     assert channel.state == channel.OPEN
 
     # list queues
+    queue_output = rabbitmq_proc.rabbitctl_output("list_queues", "name")
     no_queues = rabbitmq_proc.list_queues()
     assert not no_queues
 
@@ -86,7 +87,5 @@ def test_random_port_node_names(rabbitmq_rand_proc2, rabbitmq_rand_proc3):
 def test_plugin_directory(rabbitmq_plugindir):
     """Test node names for different processes."""
     # pylint:disable=protected-access
-    assert (
-        rabbitmq_plugindir._envvars["RABBITMQ_ENABLED_PLUGINS_FILE"] == "/etc/plugins"
-    )
+    assert rabbitmq_plugindir._envvars["RABBITMQ_ENABLED_PLUGINS_FILE"] == "/etc/plugins"
     # pylint:enable=protected-access

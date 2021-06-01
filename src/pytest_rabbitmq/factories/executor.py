@@ -1,5 +1,5 @@
 """RabbitMQ Executor."""
-
+import re
 import subprocess
 
 from mirakuru import TCPExecutor
@@ -7,6 +7,8 @@ from mirakuru import TCPExecutor
 
 class RabbitMqExecutor(TCPExecutor):
     """RabbitMQ executor to start specific rabbitmq instances."""
+
+    _UNWANTED_QUEUE_PATTERN = re.compile("(done|timeout:|listing queues)")
 
     def __init__(
         self,
@@ -52,9 +54,7 @@ class RabbitMqExecutor(TCPExecutor):
         """
         ctl_command = [self.rabbit_ctl]
         ctl_command.extend(args)
-        return subprocess.check_output(
-            ctl_command, env=self._popen_kwargs["env"]
-        ).decode("utf-8")
+        return subprocess.check_output(ctl_command, env=self._popen_kwargs["env"]).decode("utf-8")
 
     def list_exchanges(self):
         """Get exchanges defined on given rabbitmq."""
@@ -72,10 +72,9 @@ class RabbitMqExecutor(TCPExecutor):
         """Get queues defined on given rabbitmq."""
         queues = []
         output = self.rabbitctl_output("list_queues", "name")
-        unwanted_queues = ["listing queues", "done"]
 
         for queue in output.split("\n"):
-            if queue and queue.strip(". ").lower() not in unwanted_queues:
+            if queue and not self._UNWANTED_QUEUE_PATTERN.search(queue.strip(". ").lower()):
                 queues.append(str(queue))
 
         return queues

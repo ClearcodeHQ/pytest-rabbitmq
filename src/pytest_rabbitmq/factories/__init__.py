@@ -19,4 +19,4 @@
 from pytest_rabbitmq.factories.client import rabbitmq
 from pytest_rabbitmq.factories.process import rabbitmq_proc
 
-__all__ = ('rabbitmq', 'rabbitmq_proc')
+__all__ = ("rabbitmq", "rabbitmq_proc")

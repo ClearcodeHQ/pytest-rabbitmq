@@ -33,9 +33,7 @@ def get_config(request):
     options = ["logsdir", "host", "port", "server", "ctl", "node", "plugindir"]
     for option in options:
         option_name = "rabbitmq_" + option
-        conf = request.config.getoption(option_name) or request.config.getini(
-            option_name
-        )
+        conf = request.config.getoption(option_name) or request.config.getini(option_name)
         config[option] = conf
     return config
 

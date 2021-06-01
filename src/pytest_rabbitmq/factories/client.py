@@ -33,7 +33,7 @@ def clear_rabbitmq(process, rabbitmq_connection):
     channel = rabbitmq_connection.channel()
 
     for exchange in process.list_exchanges():
-        if exchange.startswith('amq.'):
+        if exchange.startswith("amq."):
             # ----------------------------------------------------------------
             # From rabbit docs:
             # https://www.rabbitmq.com/amqp-0-9-1-reference.html
@@ -48,7 +48,7 @@ def clear_rabbitmq(process, rabbitmq_connection):
         ex.delete()
 
     for queue_name in process.list_queues():
-        if queue_name.startswith('amq.'):
+        if queue_name.startswith("amq."):
             # ----------------------------------------------------------------
             # From rabbit docs:
             # https://www.rabbitmq.com/amqp-0-9-1-reference.html
@@ -80,6 +80,7 @@ def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
 
     :returns RabbitMQ connection
     """
+
     @pytest.fixture
     def rabbitmq_factory(request):
         """
@@ -96,9 +97,7 @@ def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
         # load required process fixture
         process = request.getfixturevalue(process_fixture_name)
 
-        connection = Connection(
-            f'amqp://guest:guest@{process.host}:{process.port}/%2F'
-        )
+        connection = Connection(f"amqp://guest:guest@{process.host}:{process.port}/%2F")
 
         def finalizer():
             teardown(process, connection)
