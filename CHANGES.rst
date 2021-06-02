@@ -4,13 +4,17 @@ CHANGELOG
 unreleased
 ----------
 
+Bugfix
+++++++
+
+- rely on `get_port` functionality delivered by `port_for`
+- Extended range of messages for list queues output
+
 Misc
 ++++
 
 - Migrate CI to github actions
-- Extended range of messages for list queues output
 - Support only python 3.7 and up
-- rely on `get_port` functionality delivered by `port_for`
 
 2.1.0
 ----------
