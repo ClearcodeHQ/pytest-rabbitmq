@@ -16,10 +16,14 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with pytest-rabbitmq.  If not, see <http://www.gnu.org/licenses/>.
 """RabbitMQ client fixture factory."""
+import logging
 
 import pytest
 
 from rabbitpy import Exchange, Queue, Connection
+from rabbitpy.exceptions import ChannelClosedException
+
+logger = logging.getLogger("pytest-rabbitmq")
 
 
 def clear_rabbitmq(process, rabbitmq_connection):
@@ -101,6 +105,10 @@ def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
 
         yield connection
         teardown(process, connection)
-        connection.close()
+        try:
+            connection.close()
+        except ChannelClosedException as e:
+            # at this stage this exception occurs when connection is being closed
+            logger.warning(f"ChannelClosedException occured while closing connection {e}")
 
     return rabbitmq_factory
