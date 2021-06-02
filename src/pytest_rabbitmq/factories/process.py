@@ -22,9 +22,9 @@ from tempfile import gettempdir
 
 import pytest
 from mirakuru.exceptions import ProcessExitedWithError
+from port_for import get_port
 
 from pytest_rabbitmq.factories.executor import RabbitMqExecutor
-from pytest_rabbitmq.port import get_port
 
 
 def get_config(request):
