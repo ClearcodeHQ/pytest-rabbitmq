@@ -49,7 +49,6 @@ def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
     assert channel.state == channel.OPEN
 
     # list queues
-    queue_output = rabbitmq_proc.rabbitctl_output("list_queues", "name")
     no_queues = rabbitmq_proc.list_queues()
     assert not no_queues
 
