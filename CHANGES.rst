@@ -4,6 +4,11 @@ CHANGELOG
 unreleased
 ----------
 
+Bugfix
+++++++
+
+- require `port-for>=0.6.0` which introduced the `get_port` function
+
 Misc
 ++++
 
