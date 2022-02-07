@@ -38,6 +38,7 @@ class RabbitMqExecutor(TCPExecutor):
             "RABBITMQ_LOG_BASE": logpath + f"/rabbit-server.{port}.log",
             "RABBITMQ_MNESIA_BASE": path + "mnesia",
             "RABBITMQ_ENABLED_PLUGINS_FILE": plugin_path + "/plugins",
+            "RABBITMQ_PLUGINS_DIR": plugin_path,
             "RABBITMQ_NODE_PORT": str(port),
             # Use the port number in node name, so multiple instances started
             # at different ports will work separately instead of clustering.

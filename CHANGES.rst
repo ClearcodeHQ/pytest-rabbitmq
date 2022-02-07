@@ -4,6 +4,11 @@ CHANGELOG
 unreleased
 ----------
 
+Bugfix
+++++++
+
+- Set the `RABBITMQ_PLUGINS_DIR` environment variable when starting the server
+
 Misc
 ++++
 
