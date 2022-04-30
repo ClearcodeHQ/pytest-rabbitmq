@@ -1,9 +1,9 @@
 # test runs requirements (versions we'll be testing against) - automatically updated by requires.io
-pytest==7.0.0
+pytest==7.1.2
 pytest-xdist==2.5.0
 pytest-cov==3.0.0
-coverage==6.3.1 # pytest-cov
+coverage==6.3.2 # pytest-cov
 rabbitpy==2.0.1
-port-for==0.6.1
-mirakuru==2.4.1
+port-for==0.6.2
+mirakuru==2.4.2
 -e .[tests]

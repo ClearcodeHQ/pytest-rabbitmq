@@ -4,10 +4,15 @@ CHANGELOG
 unreleased
 ----------
 
+- Set the `RABBITMQ_PLUGINS_DIR` environment variable when starting the server
+
+2.2.1
+----------
+
 Bugfix
 ++++++
 
-- Set the `RABBITMQ_PLUGINS_DIR` environment variable when starting the server
+- require `port-for>=0.6.0` which introduced the `get_port` function
 
 Misc
 ++++
