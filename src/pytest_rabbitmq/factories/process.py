@@ -46,6 +46,7 @@ def rabbitmq_proc(
     ctl=None,
     logsdir=None,
     plugindir=None,
+    **kwargs
 ):
     """
     Fixture factory for RabbitMQ process.
@@ -64,6 +65,7 @@ def rabbitmq_proc(
                           clustered)
     :param str ctl: path to rabbitmqctl file
     :param str logsdir: path to log directory
+    :param kwargs: see RabbitMqExecutor for description
 
     :returns pytest fixture with RabbitMQ process executor
     """
@@ -107,6 +109,7 @@ def rabbitmq_proc(
             path=rabbit_path,
             plugin_path=rabbit_plugin_path,
             node_name=node or config["node"],
+            **kwargs
         )
 
         rabbit_executor.start()
