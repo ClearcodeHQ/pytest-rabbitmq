@@ -11,4 +11,4 @@ on:
     branches: [ main ]
 jobs:
   lint:
-    uses: fizyk/actions-reuse/.github/workflows/linters-python.yml@v1.2.0
+    uses: fizyk/actions-reuse/.github/workflows/linters-python.yml@v1.7.0
