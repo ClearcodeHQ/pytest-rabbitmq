@@ -5,7 +5,7 @@ on:
       - v*
 jobs:
   build:
-    uses: fizyk/actions-reuse/.github/workflows/pypi.yml@v1.2.0
+    uses: fizyk/actions-reuse/.github/workflows/pypi.yml@v1.7.1
     with:
       publish: true
     secrets:
