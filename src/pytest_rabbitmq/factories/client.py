@@ -38,8 +38,7 @@ def clear_rabbitmq(process, rabbitmq_connection):
     """
     channel = rabbitmq_connection.channel()
 
-    exchanges = process.list_exchanges()
-    for exchange in exchanges:
+    for exchange in process.list_exchanges():
         if exchange.startswith("amq."):
             # ----------------------------------------------------------------
             # From rabbit docs:
@@ -53,8 +52,7 @@ def clear_rabbitmq(process, rabbitmq_connection):
             continue
         channel.exchange_delete(exchange)
 
-    queues = process.list_queues()
-    for queue_name in queues:
+    for queue_name in process.list_queues():
         if queue_name.startswith("amq."):
             # ----------------------------------------------------------------
             # From rabbit docs:
