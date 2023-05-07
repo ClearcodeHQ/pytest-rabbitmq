@@ -101,12 +101,9 @@ def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
         # load required process fixture
         process = request.getfixturevalue(process_fixture_name)
 
-        credentials = PlainCredentials('guest', 'guest')
+        credentials = PlainCredentials("guest", "guest")
         parameters = ConnectionParameters(
-            host=process.host,
-            port=process.port,
-            virtual_host='/',
-            credentials=credentials
+            host=process.host, port=process.port, virtual_host="/", credentials=credentials
         )
         connection = BlockingConnection(parameters)
 
