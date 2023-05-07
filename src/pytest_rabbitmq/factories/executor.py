@@ -60,7 +60,7 @@ class RabbitMqExecutor(TCPExecutor):
         """Get exchanges defined on given rabbitmq."""
         exchanges = []
         output = self.rabbitctl_output("list_exchanges", "name")
-        unwanted_exchanges = ["Listing exchanges ...", "...done."]
+        unwanted_exchanges = ["Listing exchanges for vhost / ...", "...done."]
 
         for exchange in output.split("\n"):
             if exchange and exchange not in unwanted_exchanges:

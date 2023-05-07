@@ -1,5 +1,4 @@
 """Tests for RabbitMQ fixtures."""
-from rabbitpy import Exchange, Queue
 
 from pytest_rabbitmq.factories.client import clear_rabbitmq
 
@@ -7,31 +6,30 @@ from pytest_rabbitmq.factories.client import clear_rabbitmq
 def test_rabbitmq(rabbitmq):
     """Check a signle. default rabbitmq."""
     channel = rabbitmq.channel()
-    assert channel.state == channel.OPEN
+    assert channel.is_open
 
 
 def test_second_rabbitmq(rabbitmq, rabbitmq2):
     """Check whether two rabbitmq are started correctly."""
     print("checking first channel")
     channel = rabbitmq.channel()
-    assert channel.state == channel.OPEN
+    assert channel.is_open
 
     print("checking second channel")
     channel2 = rabbitmq2.channel()
-    assert channel2.state == channel.OPEN
+    assert channel2.is_open
 
 
 def test_rabbitmq_clear_exchanges(rabbitmq, rabbitmq_proc):
     """Declare exchange, and clear it by clear_rabbitmq."""
     channel = rabbitmq.channel()
-    assert channel.state == channel.OPEN
+    assert channel.is_open
 
     # list exchanges
     no_exchanges = rabbitmq_proc.list_exchanges()
 
     # declare exchange and list exchanges afterwards
-    exchange = Exchange(channel, "cache-in")
-    exchange.declare()
+    channel.exchange_declare("cache-in")
     exchanges = rabbitmq_proc.list_exchanges()
 
     # make sure it differs
@@ -46,15 +44,14 @@ def test_rabbitmq_clear_exchanges(rabbitmq, rabbitmq_proc):
 def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
     """Declare queue, and clear it by clear_rabbitmq."""
     channel = rabbitmq.channel()
-    assert channel.state == channel.OPEN
+    assert channel.is_open
 
     # list queues
     no_queues = rabbitmq_proc.list_queues()
     assert not no_queues
 
     # declare queue, and get new output
-    queue = Queue(channel, "fastlane")
-    queue.declare()
+    channel.queue_declare("fastlane")
     queues = rabbitmq_proc.list_queues()
     assert queues
 
@@ -70,7 +67,7 @@ def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
 def test_random_port(rabbitmq_rand):
     """Test if rabbit fixture can be started on random port."""
     channel = rabbitmq_rand.channel()
-    assert channel.state == channel.OPEN
+    assert channel.is_open
 
 
 def test_random_port_node_names(rabbitmq_rand_proc2, rabbitmq_rand_proc3):
