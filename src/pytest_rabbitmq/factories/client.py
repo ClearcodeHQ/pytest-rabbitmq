@@ -20,8 +20,10 @@ import logging
 
 import pytest
 
-from rabbitpy import Exchange, Queue, Connection
-from rabbitpy.exceptions import ChannelClosedException
+from pika.credentials import PlainCredentials
+from pika import ConnectionParameters
+from pika.adapters.blocking_connection import BlockingConnection, BlockingChannel
+from pika.exceptions import ChannelClosed
 
 logger = logging.getLogger("pytest-rabbitmq")
 
@@ -31,7 +33,7 @@ def clear_rabbitmq(process, rabbitmq_connection):
     Clear queues and exchanges from given rabbitmq process.
 
     :param RabbitMqExecutor process: rabbitmq process
-    :param rabbitpy.Connection rabbitmq_connection: connection to rabbitmq
+    :param pika.connection.Connection rabbitmq_connection: connection to rabbitmq
 
     """
     channel = rabbitmq_connection.channel()
@@ -48,8 +50,7 @@ def clear_rabbitmq(process, rabbitmq_connection):
             # exchange already exists. Error code: access-refused
             # ----------------------------------------------------------------
             continue
-        ex = Exchange(channel, exchange)
-        ex.delete()
+        channel.exchange_delete(exchange)
 
     for queue_name in process.list_queues():
         if queue_name.startswith("amq."):
@@ -63,8 +64,7 @@ def clear_rabbitmq(process, rabbitmq_connection):
             # exists. Error code: access-refused
             # ----------------------------------------------------------------
             continue
-        queue = Queue(channel, queue_name)
-        queue.delete()
+        channel.queue_delete(queue_name)
 
 
 def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
@@ -95,19 +95,23 @@ def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
 
         :param TCPExecutor rabbitmq_proc: tcp executor
         :param FixtureRequest request: fixture request object
-        :rtype: rabbitpy.adapters.blocking_connection.BlockingConnection
+        :rtype: pika.adapters.blocking_connection.BlockingConnection
         :returns: instance of :class:`BlockingConnection`
         """
         # load required process fixture
         process = request.getfixturevalue(process_fixture_name)
 
-        connection = Connection(f"amqp://guest:guest@{process.host}:{process.port}/%2F")
+        credentials = PlainCredentials("guest", "guest")
+        parameters = ConnectionParameters(
+            host=process.host, port=process.port, virtual_host="/", credentials=credentials
+        )
+        connection = BlockingConnection(parameters)
 
         yield connection
         teardown(process, connection)
         try:
             connection.close()
-        except ChannelClosedException as e:
+        except ChannelClosed as e:
             # at this stage this exception occurs when connection is being closed
             logger.warning(f"ChannelClosedException occured while closing connection {e}")
 
