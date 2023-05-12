@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+unreleased
+----------
+
+- Set the `RABBITMQ_PLUGINS_DIR` environment variable when starting the server
+
 2.2.1
 ----------
 

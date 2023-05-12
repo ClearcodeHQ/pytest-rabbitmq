@@ -96,7 +96,7 @@ def rabbitmq_proc(
         rabbit_port = get_port(port) or get_port(config["port"])
 
         rabbit_path = os.path.join(gettempdir(), f"rabbitmq.{rabbit_port}/")
-        rabbit_plugin_path = plugindir or config["plugindir"] or rabbit_path
+        rabbit_plugin_path = plugindir or config["plugindir"] or os.path.join(rabbit_path, "plugins")
 
         rabbit_executor = RabbitMqExecutor(
             rabbit_server,
