@@ -1,4 +1,3 @@
-include *.rst *.py
-recursive-include src/pytest_rabbitmq *.py
-recursive-include docs *
-prune docs/build
+include *.rst
+recursive-include pytest_rabbitmq/*.py
+prune tests/
