@@ -1,0 +1,1 @@
+Use towncrier to manage changelog. Require Pull Requests to contain proper newsfragment.
