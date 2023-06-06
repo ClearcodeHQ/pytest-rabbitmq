@@ -19,18 +19,16 @@
 import logging
 
 import pytest
-
-from pika.credentials import PlainCredentials
 from pika import ConnectionParameters
-from pika.adapters.blocking_connection import BlockingConnection, BlockingChannel
+from pika.adapters.blocking_connection import BlockingConnection
+from pika.credentials import PlainCredentials
 from pika.exceptions import ChannelClosed
 
 logger = logging.getLogger("pytest-rabbitmq")
 
 
 def clear_rabbitmq(process, rabbitmq_connection):
-    """
-    Clear queues and exchanges from given rabbitmq process.
+    """Clear queues and exchanges from given rabbitmq process.
 
     :param RabbitMqExecutor process: rabbitmq process
     :param pika.connection.Connection rabbitmq_connection: connection to rabbitmq
@@ -68,8 +66,7 @@ def clear_rabbitmq(process, rabbitmq_connection):
 
 
 def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
-    """
-    Client fixture factory for RabbitMQ.
+    """Client fixture factory for RabbitMQ.
 
     :param str process_fixture_name: name of RabbitMQ process variable
         returned by rabbitmq_proc
@@ -87,8 +84,7 @@ def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
 
     @pytest.fixture
     def rabbitmq_factory(request):
-        """
-        Client fixture for RabbitMQ.
+        """Client fixture for RabbitMQ.
 
         #. Get module and config.
         #. Connect to RabbitMQ using the parameters from config.

@@ -10,5 +10,4 @@ jobs:
     uses: fizyk/actions-reuse/.github/workflows/linters-python.yml@v2.1.2
     with:
       black: true
-      pycodestyle: true
-      pydocstyle: true
+      ruff: true

@@ -20,7 +20,6 @@ from tempfile import gettempdir
 
 from pytest_rabbitmq import factories
 
-
 # pylint:disable=invalid-name
 _help_ctl = "RabbitMQ ctl path"
 _help_server = "RabbitMQ server path"

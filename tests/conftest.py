@@ -1,6 +1,6 @@
 """Tests main conftest file."""
-from pytest_rabbitmq.plugin import *
 from pytest_rabbitmq import factories
+from pytest_rabbitmq.plugin import *  # noqa: F403
 
 # pylint:disable=invalid-name
 rabbitmq_proc2 = factories.rabbitmq_proc(port=5674, node="test2")

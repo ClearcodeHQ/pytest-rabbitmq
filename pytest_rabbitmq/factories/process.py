@@ -47,8 +47,7 @@ def rabbitmq_proc(
     logsdir=None,
     plugindir=None,
 ):
-    """
-    Fixture factory for RabbitMQ process.
+    """Fixture factory for RabbitMQ process.
 
     :param str server: path to rabbitmq-server command
     :param str host: server host
@@ -70,8 +69,7 @@ def rabbitmq_proc(
 
     @pytest.fixture(scope="session")
     def rabbitmq_proc_fixture(request):
-        """
-        Fixture for RabbitMQ process.
+        """Fixture for RabbitMQ process.
 
         #. Get config.
         #. Make a temporary directory.
