@@ -22,8 +22,7 @@ class RabbitMqExecutor(TCPExecutor):
         node_name=None,
         **kwargs,
     ):  # pylint:disable=too-many-arguments
-        """
-        Initialize RabbitMQ executor.
+        """Initialize RabbitMQ executor.
 
         :param str command: rabbitmq-server location
         :param str host: host where rabbitmq will be accessible
@@ -47,8 +46,7 @@ class RabbitMqExecutor(TCPExecutor):
         self.rabbit_ctl = rabbit_ctl
 
     def rabbitctl_output(self, *args):
-        """
-        Query rabbitctl with args.
+        """Query rabbitctl with args.
 
         :param list args: list of additional args to query
         """
