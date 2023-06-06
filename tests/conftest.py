@@ -1,4 +1,5 @@
 """Tests main conftest file."""
+from pytest_rabbitmq.plugin import *
 from pytest_rabbitmq import factories
 
 # pylint:disable=invalid-name
