@@ -14,7 +14,7 @@ towncrier = "==22.12"
 pytest-cov = "==4.0"
 pytest-xdist = "==3.3.1"
 pycodestyle = "==2.10.0"
-pydocstyle = "==6.1.1"
+pydocstyle = "==6.3.0"
 black = "==22.10"
 
 [requires]
