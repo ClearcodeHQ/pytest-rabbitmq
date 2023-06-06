@@ -7,4 +7,8 @@ on:
     branches: [ main ]
 jobs:
   lint:
-    uses: fizyk/actions-reuse/.github/workflows/linters-python.yml@v1.7.1
+    uses: fizyk/actions-reuse/.github/workflows/linters-python.yml@v2.1.2
+    with:
+      black: true
+      pycodestyle: true
+      pydocstyle: true
