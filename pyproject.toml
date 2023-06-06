@@ -1,3 +1,69 @@
+[project]
+name = "pytest-rabbitmq"
+version = "2.2.1"
+description = "RabbitMQ process and client fixtures for pytest"
+readme = "README.rst"
+keywords = ["tests", "pytest", "fixture", "rabbitmq", "messsage queue"]
+license = {file = "COPYING.lesser"}
+authors = [
+    {name = "Grzegorz Śliwiński", email = "fizyk+pypi@fizyk.dev"}
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Testing",
+    "Framework :: Pytest",
+]
+dependencies = [
+    "pytest >= 6.2",
+    "port-for >= 0.6.0",
+    "mirakuru",
+    "pika",
+]
+requires-python = ">= 3.7"
+
+[project.urls]
+"Source" = "https://github.com/ClearcodeHQ/pytest-rabbitmq"
+"Bug Tracker" = "https://github.com/ClearcodeHQ/pytest-rabbitmq/issues"
+"Changelog" = "https://github.com/ClearcodeHQ/pytest-rabbitmq/blob/v2.2.1/CHANGES.rst"
+
+[project.entry-points."pytest11"]
+pytest_redis = "pytest_rabbitmq.plugin"
+
+[build-system]
+requires = ["setuptools >= 61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+zip-safe = true
+
+[tool.setuptools.packages.find]
+include = ["pytest_rabbitmq*"]
+exclude = ["tests*"]
+namespaces = false
+
+[tool.pytest.ini_options]
+xfail_strict=true
+addopts = "--max-worker-restart=0 --showlocals --verbose --cov"
+testpaths = "tests"
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+include = '.*\.pyi?$'
 
 [tool.towncrier]
 directory = "newsfragments"
@@ -20,13 +86,3 @@ showcontent = true
 [tool.towncrier.fragment.misc]
 name = "Miscellaneus"
 showcontent = true
-
-
-[build-system]
-requires = ["setuptools >= 40.6.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[tool.black]
-line-length = 100
-target-version = ['py38']
-include = '.*\.pyi?$'
