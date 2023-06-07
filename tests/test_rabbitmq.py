@@ -1,15 +1,17 @@
 """Tests for RabbitMQ fixtures."""
+from pika import BlockingConnection
 
 from pytest_rabbitmq.factories.client import clear_rabbitmq
+from pytest_rabbitmq.factories.executor import RabbitMqExecutor
 
 
-def test_rabbitmq(rabbitmq):
+def test_rabbitmq(rabbitmq: BlockingConnection) -> None:
     """Check a signle. default rabbitmq."""
     channel = rabbitmq.channel()
     assert channel.is_open
 
 
-def test_second_rabbitmq(rabbitmq, rabbitmq2):
+def test_second_rabbitmq(rabbitmq: BlockingConnection, rabbitmq2: BlockingConnection) -> None:
     """Check whether two rabbitmq are started correctly."""
     print("checking first channel")
     channel = rabbitmq.channel()
@@ -20,7 +22,9 @@ def test_second_rabbitmq(rabbitmq, rabbitmq2):
     assert channel2.is_open
 
 
-def test_rabbitmq_clear_exchanges(rabbitmq, rabbitmq_proc):
+def test_rabbitmq_clear_exchanges(
+    rabbitmq: BlockingConnection, rabbitmq_proc: RabbitMqExecutor
+) -> None:
     """Declare exchange, and clear it by clear_rabbitmq."""
     channel = rabbitmq.channel()
     assert channel.is_open
@@ -41,7 +45,9 @@ def test_rabbitmq_clear_exchanges(rabbitmq, rabbitmq_proc):
     assert no_exchanges == cleared_exchanges
 
 
-def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
+def test_rabbitmq_clear_queues(
+    rabbitmq: BlockingConnection, rabbitmq_proc: RabbitMqExecutor
+) -> None:
     """Declare queue, and clear it by clear_rabbitmq."""
     channel = rabbitmq.channel()
     assert channel.is_open
@@ -64,13 +70,15 @@ def test_rabbitmq_clear_queues(rabbitmq, rabbitmq_proc):
     assert no_queues == cleared_queues
 
 
-def test_random_port(rabbitmq_rand):
+def test_random_port(rabbitmq_rand: BlockingConnection) -> None:
     """Test if rabbit fixture can be started on random port."""
     channel = rabbitmq_rand.channel()
     assert channel.is_open
 
 
-def test_random_port_node_names(rabbitmq_rand_proc2, rabbitmq_rand_proc3):
+def test_random_port_node_names(
+    rabbitmq_rand_proc2: RabbitMqExecutor, rabbitmq_rand_proc3: RabbitMqExecutor
+) -> None:
     """Test node names for different processes."""
     # pylint:disable=protected-access
     assert (
@@ -80,7 +88,7 @@ def test_random_port_node_names(rabbitmq_rand_proc2, rabbitmq_rand_proc3):
     # pylint:enable=protected-access
 
 
-def test_plugin_directory(rabbitmq_plugindir):
+def test_plugin_directory(rabbitmq_plugindir: RabbitMqExecutor) -> None:
     """Test node names for different processes."""
     # pylint:disable=protected-access
     assert rabbitmq_plugindir._envvars["RABBITMQ_ENABLED_PLUGINS_FILE"] == "/etc/plugins"

@@ -1,6 +1,7 @@
 """RabbitMQ Executor."""
 import re
 import subprocess
+from typing import List, Optional
 
 from mirakuru import TCPExecutor
 
@@ -12,21 +13,20 @@ class RabbitMqExecutor(TCPExecutor):
 
     def __init__(
         self,
-        command,
-        host,
-        port,
-        rabbit_ctl,
-        logpath,
-        path,
-        plugin_path,
-        node_name=None,
-        **kwargs,
-    ):  # pylint:disable=too-many-arguments
+        command: str,
+        host: str,
+        port: int,
+        rabbit_ctl: str,
+        logpath: str,
+        path: str,
+        plugin_path: str,
+        node_name: Optional[str] = None,
+    ) -> None:  # pylint:disable=too-many-arguments
         """Initialize RabbitMQ executor.
 
-        :param str command: rabbitmq-server location
-        :param str host: host where rabbitmq will be accessible
-        :param int port: port under which rabbitmq runs
+        :param command: rabbitmq-server location
+        :param host: host where rabbitmq will be accessible
+        :param port: port under which rabbitmq runs
         :param str rabbit_ctl: rabbitctl location
         :param str logpath:
         :param str path: Path containing rabbitmq'a mnesia na plugins
@@ -42,21 +42,21 @@ class RabbitMqExecutor(TCPExecutor):
             # at different ports will work separately instead of clustering.
             "RABBITMQ_NODENAME": node_name or f"rabbitmq-test-{port}",
         }
-        super().__init__(command, host, port, timeout=60, envvars=envvars, **kwargs)
+        super().__init__(command, host, port, timeout=60, envvars=envvars)
         self.rabbit_ctl = rabbit_ctl
 
-    def rabbitctl_output(self, *args):
+    def rabbitctl_output(self, *args: str) -> str:
         """Query rabbitctl with args.
 
         :param list args: list of additional args to query
         """
-        ctl_command = [self.rabbit_ctl]
+        ctl_command: List[str] = [self.rabbit_ctl]
         ctl_command.extend(args)
         return subprocess.check_output(ctl_command, env=self._popen_kwargs["env"]).decode("utf-8")
 
-    def list_exchanges(self):
+    def list_exchanges(self) -> List[str]:
         """Get exchanges defined on given rabbitmq."""
-        exchanges = []
+        exchanges: List[str] = []
         output = self.rabbitctl_output("list_exchanges", "name")
         unwanted_exchanges = ["Listing exchanges for vhost / ...", "...done."]
 
@@ -66,9 +66,9 @@ class RabbitMqExecutor(TCPExecutor):
 
         return exchanges
 
-    def list_queues(self):
+    def list_queues(self) -> List[str]:
         """Get queues defined on given rabbitmq."""
-        queues = []
+        queues: List[str] = []
         output = self.rabbitctl_output("list_queues", "name")
 
         for queue in output.split("\n"):

@@ -19,34 +19,57 @@
 
 import os
 from tempfile import gettempdir
+from typing import Any, Callable, Generator, Optional, TypedDict
 
 import pytest
 from mirakuru.exceptions import ProcessExitedWithError
 from port_for import get_port
+from pytest import FixtureRequest
 
 from pytest_rabbitmq.factories.executor import RabbitMqExecutor
 
 
-def get_config(request):
+class RabbitMQConfig(TypedDict):
+    """Pytest RabbitMQ config definition type."""
+
+    host: str
+    port: Optional[int]
+    logsdir: str
+    server: str
+    ctl: str
+    node: str
+    plugindir: str
+
+
+def get_config(request: FixtureRequest) -> RabbitMQConfig:
     """Return a dictionary with config options."""
-    config = {}
-    options = ["logsdir", "host", "port", "server", "ctl", "node", "plugindir"]
-    for option in options:
+
+    def get_conf_option(option: str) -> Any:
         option_name = "rabbitmq_" + option
-        conf = request.config.getoption(option_name) or request.config.getini(option_name)
-        config[option] = conf
+        return request.config.getoption(option_name) or request.config.getini(option_name)
+
+    port = get_conf_option("port")
+    config: RabbitMQConfig = {
+        "host": get_conf_option("host"),
+        "port": int(port) if port else None,
+        "logsdir": get_conf_option("logsdir"),
+        "server": get_conf_option("server"),
+        "ctl": get_conf_option("ctl"),
+        "node": get_conf_option("node"),
+        "plugindir": get_conf_option("plugindir"),
+    }
     return config
 
 
 def rabbitmq_proc(
-    server=None,
-    host=None,
-    port=-1,
-    node=None,
-    ctl=None,
-    logsdir=None,
-    plugindir=None,
-):
+    server: Optional[str] = None,
+    host: Optional[str] = None,
+    port: Optional[int] = -1,
+    node: Optional[str] = None,
+    ctl: Optional[str] = None,
+    logsdir: Optional[str] = None,
+    plugindir: Optional[str] = None,
+) -> Callable[[FixtureRequest], Generator[RabbitMqExecutor, None, None]]:
     """Fixture factory for RabbitMQ process.
 
     :param str server: path to rabbitmq-server command
@@ -68,7 +91,7 @@ def rabbitmq_proc(
     """
 
     @pytest.fixture(scope="session")
-    def rabbitmq_proc_fixture(request):
+    def rabbitmq_proc_fixture(request: FixtureRequest) -> Generator[RabbitMqExecutor, None, None]:
         """Fixture for RabbitMQ process.
 
         #. Get config.
@@ -92,16 +115,20 @@ def rabbitmq_proc(
         rabbit_server = server or config["server"]
         rabbit_host = host or config["host"]
         rabbit_port = get_port(port) or get_port(config["port"])
+        assert rabbit_port
 
         rabbit_path = os.path.join(gettempdir(), f"rabbitmq.{rabbit_port}/")
         rabbit_plugin_path = plugindir or config["plugindir"] or rabbit_path
+
+        rabbit_logpath = config["logsdir"] or logsdir
+        assert rabbit_logpath
 
         rabbit_executor = RabbitMqExecutor(
             rabbit_server,
             rabbit_host,
             rabbit_port,
             rabbit_ctl,
-            logpath=config["logsdir"] or logsdir,
+            logpath=rabbit_logpath,
             path=rabbit_path,
             plugin_path=rabbit_plugin_path,
             node_name=node or config["node"],

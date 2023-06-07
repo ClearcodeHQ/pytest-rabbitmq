@@ -18,6 +18,8 @@
 """Plugin definition for pytest-rabbitmq."""
 from tempfile import gettempdir
 
+from pytest import Parser
+
 from pytest_rabbitmq import factories
 
 # pylint:disable=invalid-name
@@ -30,7 +32,7 @@ _help_port = "Port at which RabbitMQ will accept connections"
 _help_node = "Node name for rabbitmq instance"
 
 
-def pytest_addoption(parser):
+def pytest_addoption(parser: Parser) -> None:
     """Confioguration option."""
     parser.addini(name="rabbitmq_host", help=_help_host, default="127.0.0.1")
     parser.addini(

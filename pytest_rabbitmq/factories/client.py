@@ -17,17 +17,20 @@
 # along with pytest-rabbitmq.  If not, see <http://www.gnu.org/licenses/>.
 """RabbitMQ client fixture factory."""
 import logging
+from typing import Callable, Generator
 
 import pytest
-from pika import ConnectionParameters
-from pika.adapters.blocking_connection import BlockingConnection
+from pika import BlockingConnection, ConnectionParameters
 from pika.credentials import PlainCredentials
 from pika.exceptions import ChannelClosed
+from pytest import FixtureRequest
+
+from pytest_rabbitmq.factories.executor import RabbitMqExecutor
 
 logger = logging.getLogger("pytest-rabbitmq")
 
 
-def clear_rabbitmq(process, rabbitmq_connection):
+def clear_rabbitmq(process: RabbitMqExecutor, rabbitmq_connection: BlockingConnection) -> None:
     """Clear queues and exchanges from given rabbitmq process.
 
     :param RabbitMqExecutor process: rabbitmq process
@@ -65,7 +68,10 @@ def clear_rabbitmq(process, rabbitmq_connection):
         channel.queue_delete(queue_name)
 
 
-def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
+def rabbitmq(
+    process_fixture_name: str,
+    teardown: Callable[[RabbitMqExecutor, BlockingConnection], None] = clear_rabbitmq,
+) -> Callable[[FixtureRequest], Generator[BlockingConnection, None, None]]:
     """Client fixture factory for RabbitMQ.
 
     :param str process_fixture_name: name of RabbitMQ process variable
@@ -83,7 +89,7 @@ def rabbitmq(process_fixture_name, teardown=clear_rabbitmq):
     """
 
     @pytest.fixture
-    def rabbitmq_factory(request):
+    def rabbitmq_factory(request: FixtureRequest) -> Generator[BlockingConnection, None, None]:
         """Client fixture for RabbitMQ.
 
         #. Get module and config.
