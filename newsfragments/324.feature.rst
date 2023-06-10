@@ -1,0 +1,1 @@
+Introduce typing and run mypy checks
