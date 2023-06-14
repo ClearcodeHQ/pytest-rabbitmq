@@ -1,6 +1,7 @@
 """RabbitMQ Executor."""
 import re
 import subprocess
+from pathlib import Path
 from typing import List, Optional
 
 from mirakuru import TCPExecutor
@@ -17,9 +18,9 @@ class RabbitMqExecutor(TCPExecutor):
         host: str,
         port: int,
         rabbit_ctl: str,
-        logpath: str,
-        path: str,
-        plugin_path: str,
+        logpath: Path,
+        path: Path,
+        plugin_path: Path,
         node_name: Optional[str] = None,
     ) -> None:  # pylint:disable=too-many-arguments
         """Initialize RabbitMQ executor.
@@ -27,16 +28,15 @@ class RabbitMqExecutor(TCPExecutor):
         :param command: rabbitmq-server location
         :param host: host where rabbitmq will be accessible
         :param port: port under which rabbitmq runs
-        :param str rabbit_ctl: rabbitctl location
-        :param str logpath:
-        :param str path: Path containing rabbitmq'a mnesia na plugins
-        :param str node_name: RabbitMQ node name
-        :param kwargs: see TCPExecutor for description
+        :param rabbit_ctl: rabbitctl location
+        :param logpath:
+        :param path: Path containing rabbitmq'a mnesia na plugins
+        :param node_name: RabbitMQ node name
         """
         envvars = {
-            "RABBITMQ_LOG_BASE": logpath + f"/rabbit-server.{port}.log",
-            "RABBITMQ_MNESIA_BASE": path + "mnesia",
-            "RABBITMQ_ENABLED_PLUGINS_FILE": plugin_path + "/plugins",
+            "RABBITMQ_LOG_BASE": str(logpath / f"rabbit-server.{port}.log"),
+            "RABBITMQ_MNESIA_BASE": str(path / "mnesia"),
+            "RABBITMQ_ENABLED_PLUGINS_FILE": str(plugin_path / "plugins"),
             "RABBITMQ_NODE_PORT": str(port),
             # Use the port number in node name, so multiple instances started
             # at different ports will work separately instead of clustering.
