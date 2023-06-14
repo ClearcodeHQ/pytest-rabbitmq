@@ -16,6 +16,4 @@ pytest-xdist = "==3.3.1"
 black = "==23.3.0"
 ruff = "==0.0.272"
 mypy = "==1.3.0"
-
-[requires]
-python_version = "3.9"
+tbump = "==6.10.0"
