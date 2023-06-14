@@ -1,0 +1,1 @@
+Deprecate `rabbitmq_logsdir` and `--rabbitmq-logsdir` config options.

@@ -53,7 +53,7 @@ def pytest_addoption(parser: Parser) -> None:
     parser.addini(
         name="rabbitmq_logsdir",
         help=_help_logsdir,
-        default=gettempdir(),
+        default=None,
     )
     parser.addini(
         name="rabbitmq_plugindir",
