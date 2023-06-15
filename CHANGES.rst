@@ -3,6 +3,49 @@ CHANGELOG
 
 .. towncrier release notes start
 
+3.0.0 (2023-06-15)
+==================
+
+Breaking changes
+----------------
+
+- Add your info here (`#313 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/313>`_)
+- Dropped support for Python 3.7 (`#324 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/324>`_)
+
+
+Deprecations
+------------
+
+- Deprecate `rabbitmq_logsdir` and `--rabbitmq-logsdir` config options. (`#266 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/266>`_)
+
+
+Features
+--------
+
+- Use `tmp_path_factory` instead of gettempdir() manually.
+  This will allow cleaning of a temporary files. (`#266 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/266>`_)
+- Define RABBITMQ_DIST_PORT for rabbitmq.
+  Added `--rabbitmq-distribution-port` to commandline and `rabbitmq_distribution_port` to ini configuration options.
+
+  This will help both with macos port number limit (as by default Rabbitmk adds 20000 to the Node port to determine the port), and the port being already used error.
+
+  This port has to be different that rabbitmq port. (`#317 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/317>`_)
+- Use towncrier to manage changelog. Require Pull Requests to contain proper newsfragment. (`#319 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/319>`_)
+- Introduce typing and run mypy checks (`#324 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/324>`_)
+- Official Python 3.11 support (`#329 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/329>`_)
+
+
+Miscellaneus
+------------
+
+- Upadte test pipeline to install fresh rabbitmq from apt. (`#280 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/280>`_)
+- Migrate dev dependency management to pipfile (`#320 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/320>`_)
+- Migrate automerge workflow to shared one with merger app (`#321 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/321>`_)
+- Replace pycodestyle and pydocstyle with ruff. (`#322 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/322>`_)
+- Move package configuration to pyproject.toml (`#323 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/323>`_)
+- Migrate to tbump to manage package versions (`#340 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/340>`_)
+
+
 2.2.1
 =====
 

@@ -1,2 +1,0 @@
-Use `tmp_path_factory` instead of gettempdir() manually.
-This will allow cleaning of a temporary files.

@@ -1,1 +1,0 @@
-Official Python 3.11 support

@@ -1,1 +1,0 @@
-Upadte test pipeline to install fresh rabbitmq from apt.
