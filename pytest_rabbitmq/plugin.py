@@ -29,6 +29,7 @@ _help_logsdir = "Logs directory location"
 _help_plugindir = "Directory where 'plugin' file is located"
 _help_host = "Host at which RabbitMQ will accept connections"
 _help_port = "Port at which RabbitMQ will accept connections"
+_help_distribution_port = "Port at which RabbitMQ nodes will communicate with each other"
 _help_node = "Node name for rabbitmq instance"
 
 
@@ -38,6 +39,11 @@ def pytest_addoption(parser: Parser) -> None:
     parser.addini(
         name="rabbitmq_port",
         help=_help_port,
+        default=None,
+    )
+    parser.addini(
+        name="rabbitmq_distribution_port",
+        help=_help_distribution_port,
         default=None,
     )
     parser.addini(
@@ -73,6 +79,12 @@ def pytest_addoption(parser: Parser) -> None:
         help=_help_host,
     )
     parser.addoption("--rabbitmq-port", action="store", dest="rabbitmq_port", help=_help_port)
+    parser.addoption(
+        "--rabbitmq-distribution-port",
+        action="store",
+        dest="rabbitmq_distribution_port",
+        help=_help_distribution_port,
+    )
     parser.addoption("--rabbitmq-ctl", action="store", dest="rabbitmq_ctl", help=_help_ctl)
     parser.addoption("--rabbitmq-server", action="store", dest="rabbitmq_server", help=_help_server)
     parser.addoption(

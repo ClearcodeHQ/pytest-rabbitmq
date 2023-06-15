@@ -17,6 +17,7 @@ class RabbitMqExecutor(TCPExecutor):
         command: str,
         host: str,
         port: int,
+        distribution_port: int,
         rabbit_ctl: str,
         logpath: Path,
         path: Path,
@@ -38,6 +39,7 @@ class RabbitMqExecutor(TCPExecutor):
             "RABBITMQ_MNESIA_BASE": str(path / "mnesia"),
             "RABBITMQ_ENABLED_PLUGINS_FILE": str(plugin_path / "plugins"),
             "RABBITMQ_NODE_PORT": str(port),
+            "RABBITMQ_DIST_PORT": str(distribution_port),
             # Use the port number in node name, so multiple instances started
             # at different ports will work separately instead of clustering.
             "RABBITMQ_NODENAME": node_name or f"rabbitmq-test-{port}",

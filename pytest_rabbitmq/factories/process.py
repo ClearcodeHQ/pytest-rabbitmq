@@ -34,6 +34,7 @@ class RabbitMQConfig(TypedDict):
 
     host: str
     port: Optional[int]
+    distribution_port: Optional[int]
     logsdir: Optional[Path]
     server: str
     ctl: str
@@ -49,9 +50,11 @@ def get_config(request: FixtureRequest) -> RabbitMQConfig:
         return request.config.getoption(option_name) or request.config.getini(option_name)
 
     port = get_conf_option("port")
+    distribution_port = get_conf_option("distribution_port")
     config: RabbitMQConfig = {
         "host": get_conf_option("host"),
         "port": int(port) if port else None,
+        "distribution_port": int(distribution_port) if distribution_port else None,
         "logsdir": Path(get_conf_option("logsdir")),
         "server": get_conf_option("server"),
         "ctl": get_conf_option("ctl"),
@@ -65,6 +68,7 @@ def rabbitmq_proc(
     server: Optional[str] = None,
     host: Optional[str] = None,
     port: Optional[int] = -1,
+    distribution_port: Optional[int] = -1,
     node: Optional[str] = None,
     ctl: Optional[str] = None,
     logsdir: Optional[Path] = None,
@@ -75,6 +79,12 @@ def rabbitmq_proc(
     :param server: path to rabbitmq-server command
     :param host: server host
     :param port:
+        exact port (e.g. '8000', 8000)
+        randomly selected port (None) - any random available port
+        [(2000,3000)] or (2000,3000) - random available port from a given range
+        [{4002,4003}] or {4002,4003} - random of 4002 or 4003 ports
+        [(2000,3000), {4002,4003}] -random of given range and set
+    :param distribution_port:
         exact port (e.g. '8000', 8000)
         randomly selected port (None) - any random available port
         [(2000,3000)] or (2000,3000) - random available port from a given range
@@ -103,6 +113,7 @@ def rabbitmq_proc(
         #.  * RABBITMQ_MNESIA_BASE
         #.  * RABBITMQ_ENABLED_PLUGINS_FILE
         #.  * RABBITMQ_NODE_PORT
+        #.  * RABBITMQ_DIST_PORT
         #.  * RABBITMQ_NODENAME
         #. Start a rabbit server
             `<http://www.rabbitmq.com/man/rabbitmq-server.1.man.html>`_
@@ -118,6 +129,13 @@ def rabbitmq_proc(
         rabbit_host = host or config["host"]
         rabbit_port = get_port(port) or get_port(config["port"])
         assert rabbit_port
+        rabbit_distribution_port = get_port(distribution_port, [rabbit_port]) or get_port(
+            config["distribution_port"], [rabbit_port]
+        )
+        assert rabbit_distribution_port
+        assert (
+            rabbit_distribution_port != rabbit_port
+        ), "rabbit_port and distribution_port can not be the same!"
 
         tmpdir = tmp_path_factory.mktemp(f"pytest-rabbitmq-{request.fixturename}")
 
@@ -138,6 +156,7 @@ def rabbitmq_proc(
             rabbit_server,
             rabbit_host,
             rabbit_port,
+            rabbit_distribution_port,
             rabbit_ctl,
             logpath=rabbit_logpath,
             path=tmpdir,

@@ -86,10 +86,15 @@ You can pick which you prefer, but remember that these settings are handled in t
      - --rabbitmq-host
      - rabbitmq_host
      - 127.0.0.1
-   * - port
+   * - RABBITMQ_NODE_PORT
      - port
      - --rabbitmq-port
      - rabbitmq_port
+     - random
+   * - RABBITMQ_DIST_PORT
+     - distribution_port
+     - --rabbitmq-distribution-port
+     - rabbitmq_distribution_port
      - random
    * - rabbitmqctl path
      - ctl
