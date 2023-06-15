@@ -1,0 +1,6 @@
+Define RABBITMQ_DIST_PORT for rabbitmq.
+Added `--rabbitmq-distribution-port` to commandline and `rabbitmq_distribution_port` to ini configuration options.
+
+This will help both with macos port number limit (as by default Rabbitmk adds 20000 to the Node port to determine the port), and the port being already used error.
+
+This port has to be different that rabbitmq port.
