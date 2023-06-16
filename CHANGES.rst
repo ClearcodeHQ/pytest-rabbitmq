@@ -3,6 +3,15 @@ CHANGELOG
 
 .. towncrier release notes start
 
+3.0.1 (2023-06-16)
+==================
+
+Bugfixes
+--------
+
+- Fixed rabbitmq entrypoint (`#349 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/349>`_)
+
+
 3.0.0 (2023-06-15)
 ==================
 
