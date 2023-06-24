@@ -1,0 +1,1 @@
+Fixes type hints for specifying ports in Rabbitmq startup process. 
