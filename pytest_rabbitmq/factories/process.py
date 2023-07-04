@@ -18,7 +18,17 @@
 """RabbitMQ process fixture factory."""
 
 from pathlib import Path
-from typing import Any, Callable, Generator, Optional, TypedDict
+from typing import (
+    Any,
+    Callable,
+    Generator,
+    List,
+    Optional,
+    Set,
+    Tuple,
+    TypedDict,
+    Union,
+)
 from warnings import warn
 
 import pytest
@@ -28,13 +38,27 @@ from pytest import FixtureRequest, TempPathFactory
 
 from pytest_rabbitmq.factories.executor import RabbitMqExecutor
 
+PortType = Union[
+    None,
+    str,
+    int,
+    Tuple[int, int],
+    Set[int],
+    List[str],
+    List[int],
+    List[Tuple[int, int]],
+    List[Set[int]],
+    List[Union[Set[int], Tuple[int, int]]],
+    List[Union[str, int, Tuple[int, int], Set[int]]],
+]
+
 
 class RabbitMQConfig(TypedDict):
     """Pytest RabbitMQ config definition type."""
 
     host: str
-    port: Optional[int]
-    distribution_port: Optional[int]
+    port: PortType
+    distribution_port: PortType
     logsdir: Optional[Path]
     server: str
     ctl: str
@@ -67,8 +91,8 @@ def get_config(request: FixtureRequest) -> RabbitMQConfig:
 def rabbitmq_proc(
     server: Optional[str] = None,
     host: Optional[str] = None,
-    port: Optional[int] = -1,
-    distribution_port: Optional[int] = -1,
+    port: PortType = -1,
+    distribution_port: PortType = -1,
     node: Optional[str] = None,
     ctl: Optional[str] = None,
     logsdir: Optional[Path] = None,
