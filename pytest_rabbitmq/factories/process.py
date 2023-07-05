@@ -75,11 +75,12 @@ def get_config(request: FixtureRequest) -> RabbitMQConfig:
 
     port = get_conf_option("port")
     distribution_port = get_conf_option("distribution_port")
+    logsdir = get_conf_option("logsdir")
     config: RabbitMQConfig = {
         "host": get_conf_option("host"),
         "port": int(port) if port else None,
         "distribution_port": int(distribution_port) if distribution_port else None,
-        "logsdir": Path(get_conf_option("logsdir")),
+        "logsdir": Path(logsdir) if logsdir else None,
         "server": get_conf_option("server"),
         "ctl": get_conf_option("ctl"),
         "node": get_conf_option("node"),
