@@ -3,6 +3,16 @@ CHANGELOG
 
 .. towncrier release notes start
 
+3.0.2 (2023-07-05)
+==================
+
+Bugfixes
+--------
+
+- Fixes logdir config option reading. (`#354 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/354>`_)
+- Fixes type hints for specifying ports in Rabbitmq startup process. (`#355 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/355>`_)
+
+
 3.0.1 (2023-06-16)
 ==================
 

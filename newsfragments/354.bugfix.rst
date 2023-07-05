@@ -1,1 +1,0 @@
-Fixes logdir config option reading.
