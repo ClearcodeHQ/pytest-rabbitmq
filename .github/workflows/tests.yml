@@ -33,13 +33,13 @@ jobs:
       run: |
         sudo apt-get install rabbitmq-server
     - name: Run test
-      uses: fizyk/actions-reuse/.github/actions/pipenv@v2.1.2
+      uses: fizyk/actions-reuse/.github/actions/pipenv@v2.2.1
       with:
         python-version: ${{ matrix.python-version }}
         pipenv-install-options: "--skip-lock"
         command: pytest -n 0 --cov-report=xml
     - name: Run xdist test
-      uses: fizyk/actions-reuse/.github/actions/pipenv@v2.1.2
+      uses: fizyk/actions-reuse/.github/actions/pipenv@v2.2.1
       with:
         python-version: ${{ matrix.python-version }}
         pipenv-install-options: "--skip-lock"
