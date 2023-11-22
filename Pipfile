@@ -12,7 +12,7 @@ mirakuru = "==2.5.2"
 [dev-packages]
 towncrier = "==23.11.0"
 pytest-cov = "==4.1.0"
-pytest-xdist = "==3.4.0"
+pytest-xdist = "==3.5.0"
 black = "==23.11.0"
 ruff = "==0.1.6"
 mypy = "==1.7.0"
