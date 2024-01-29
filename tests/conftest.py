@@ -1,4 +1,5 @@
 """Tests main conftest file."""
+
 from pathlib import Path
 
 from pytest_rabbitmq import factories

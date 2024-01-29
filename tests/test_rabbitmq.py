@@ -1,4 +1,5 @@
 """Tests for RabbitMQ fixtures."""
+
 from pika import BlockingConnection
 
 from pytest_rabbitmq.factories.client import clear_rabbitmq
