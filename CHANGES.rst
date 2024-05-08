@@ -3,6 +3,22 @@ CHANGELOG
 
 .. towncrier release notes start
 
+3.1.0 (2024-05-08)
+==================
+
+Features
+--------
+
+- Support Python 3.12 (`#469 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/469>`_)
+
+
+Miscellaneus
+------------
+
+- Update code formatting with black 24.1 (`#424 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/424>`_)
+- Drop Pipfile.lock from repository - rely on a cached/artifacted one. (`#468 <https://github.com/ClearcodeHQ/pytest-rabbitmq/issues/468>`_)
+
+
 3.0.2 (2023-07-05)
 ==================
 

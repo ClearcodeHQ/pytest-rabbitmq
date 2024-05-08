@@ -1,1 +1,0 @@
-Drop Pipfile.lock from repository - rely on a cached/artifacted one.
