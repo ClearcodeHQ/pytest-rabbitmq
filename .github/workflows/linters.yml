@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 jobs:
   lint:
-    uses: fizyk/actions-reuse/.github/workflows/linters-python.yml@v2.4.4
+    uses: fizyk/actions-reuse/.github/workflows/linters-python.yml@continue-on-error
     with:
       black: true
       ruff: true
