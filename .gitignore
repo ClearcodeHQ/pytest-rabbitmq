@@ -25,6 +25,9 @@ lib64
 # Installer logs
 pip-log.txt
 
+# Pipenv
+Pipfile.lock
+
 # Unit test / coverage reports
 .coverage
 .tox
